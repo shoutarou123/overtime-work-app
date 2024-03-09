@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.1.4"
 gem "rails", "~> 7.0.1"
+gem 'bcrypt' # passwordﾊｯｼｭ化
 gem 'bootstrap-sass'
 gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
