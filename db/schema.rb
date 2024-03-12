@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_03_09_144001) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_12_130808) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.integer "employee_number"
+    t.integer "employee_number" # 職員番号
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.string "remember_digest"
+    t.integer "base_pay" # 基本給
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
