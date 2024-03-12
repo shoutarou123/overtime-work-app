@@ -10,7 +10,15 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token # 期限20年の永続cookieに代入 remember_tokenはuser.rb参照
   end
 
+  # 永続的セッションを破棄します
+  def forget(user)
+    user.forget # Userモデル参照
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
+  end
+
   def log_out # セッションと@current_userを破棄します
+    forget(current_user)
     session.delete(:user_id)
     @current_user = nil # これもないとcurrent_userﾒｿｯﾄﾞにより@current_userに代入されたﾕｰｻﾞｰｵﾌﾞｼﾞｪｸﾄは削除されない
   end

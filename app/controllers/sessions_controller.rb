@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.find_by(name: params[:session][:name])
     if user && user.authenticate(params[:session][:password]) # authenticate ﾊﾟｽﾜｰﾄﾞ認証失敗時falseを返す
       log_in(user) # sessions_helperのﾒｿｯﾄﾞ
-      remember(user) # sessions_helperのﾒｿｯﾄﾞ
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user) # sessions_helperのﾒｿｯﾄﾞ
       redirect_to user_url(user)
     else
       flash.now[:danger] = 'ログインに失敗しました。'
@@ -15,7 +15,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out # sessions_helperで定義済
+    # ログイン中の場合のみログアウト処理を実行します。
+    log_out if logged_in? # sessions_helperで定義済
     flash[:success] = 'ログアウトしました。'
     redirect_to root_url
   end
