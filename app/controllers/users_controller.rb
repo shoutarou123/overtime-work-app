@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.valid?(:step1) && @user.save
+      log_in @user # 新規登録後ﾛｸﾞｲﾝする sessions_helperで定義済
       flash[:success] = "新規作成に成功しました。"
       redirect_to user_url(@user)
     else

@@ -3,10 +3,8 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                               'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application',
-                               'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_importmap_tags %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
@@ -18,5 +16,8 @@
       <%= yield %>
       <%= debug(params) if Rails.env.development? %> <!--env:environment環境-->
     </div>
+     <!-- jQuery and Bootstrap scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>

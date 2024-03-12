@@ -4,6 +4,11 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
+  def log_out # セッションと@current_userを破棄します
+    session.delete(:user_id)
+    @current_user = nil # これもないとcurrent_userﾒｿｯﾄﾞにより@current_userに代入されたﾕｰｻﾞｰｵﾌﾞｼﾞｪｸﾄは削除されない
+  end
+  
   def current_user # 現在ログイン中のユーザーがいる場合オブジェクトを返します。
     if session[:user_id] # 一時的ｾｯｼｮﾝにuser.idがtureの時
       @current_user ||= User.find_by(id: session[:user_id])
@@ -13,5 +18,9 @@ module SessionsHelper
       #else
         #@current_user # 現在ﾕｰｻﾞｰ情報があればそれを使用する
     end
+  end
+
+  def logged_in?
+    !current_user.nil? # 一時的ｾｯｼｮﾝにuser.idが存在しないじゃないの時true
   end
 end
