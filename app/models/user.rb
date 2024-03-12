@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_secure_password # passwordﾊｯｼｭ化など
   with_options on: :step1 do
     validates :name, presence: true, length: { maximum: 50 }
-    validates :password, presence: true, length: { minimum: 6 }
+    validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   end
 
    # 渡された文字列のハッシュ値を返します。
@@ -42,8 +42,10 @@ class User < ApplicationRecord
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i # 正規表現
   with_options on: :step2 do
-    validates :email, presence: true,length: { maximum: 100 }, format: { with: VALID_EMAIL_REGEX }, # 存在性の検証は不要
-                      uniqueness: true # 一意性検証
+    validates :employee_number, presence: true
+    validates :base_pay, presence: true
+    validates :email, presence: true, length: { maximum: 100 }, format: { with: VALID_EMAIL_REGEX }, # 存在性の検証は不要
+                      uniqueness: true, allow_blank: true # 一意性検証
   end
 end
 

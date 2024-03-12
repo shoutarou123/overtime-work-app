@@ -19,9 +19,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.valid?(:step2) && @user.update(user_params)
+      flash[:success] = "職員情報を更新しました。"
+      redirect_to user_url(@user)
+    else
+      render 'edit', status: :unprocessable_entity
+    end
+  end
+
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:employee_number, :name, :base_pay, :email, :password, :password_confirmation)
     end
 end
