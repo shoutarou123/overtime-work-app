@@ -12,6 +12,9 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "jbuilder"
 gem "bootsnap", require: false
+gem "sassc-rails"
+gem 'jquery-rails'
+gem 'rails-i18n'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
