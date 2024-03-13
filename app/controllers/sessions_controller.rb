@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password]) # authenticate ﾊﾟｽﾜｰﾄﾞ認証失敗時falseを返す
       log_in(user) # sessions_helperのﾒｿｯﾄﾞ
       params[:session][:remember_me] == '1' ? remember(user) : forget(user) # sessions_helperのﾒｿｯﾄﾞ
-      redirect_to user_url(user)
+      redirect_back_or(user) # sessions_helper参照
     else
       flash.now[:danger] = 'ログインに失敗しました。'
       render 'new', status: :unprocessable_entity

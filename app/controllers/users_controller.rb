@@ -49,6 +49,7 @@ class UsersController < ApplicationController
     # ログイン済みのユーザーか確認します。
     def logged_in_user
       unless logged_in? # session_helper参照
+        store_location # session_helper参照
         flash[:danger] = "ログインしてください。"
         redirect_to login_url
       end
