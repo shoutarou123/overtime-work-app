@@ -1,0 +1,27 @@
+<% provide(:title, 'All Users') %>
+<h1>職員一覧</h1>
+
+<div class="col-md-10 col-md-offset-1">
+  <table class="table table-condensed table-hover" id="table-users">
+    <thead>
+      <tr>
+        <th ><%= User.human_attribute_name :employee_number %></th>
+        <th><%= User.human_attribute_name :name %></th>
+        <th><%= User.human_attribute_name :base_pay %></th>
+      </tr>
+    </thead>
+
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.employee_number %></td>
+        <td><%= link_to user.name, user %></td>
+        <td><%= user.base_pay %></td>
+        <td>
+          <% if current_user.admin? && !current_user?(user) %>
+            <%= link_to "削除", user, date: {turbo_method: :delete, turbo_confirm: "削除してよろしいですか？"}, class: "btn btn-danger" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

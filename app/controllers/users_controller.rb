@@ -1,7 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
-  before_action :logged_in_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
+
+  def index
+    @users = User.all
+  end
 
   def show
   end
@@ -31,6 +35,12 @@ class UsersController < ApplicationController
     else
       render 'edit', status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @user.destroy
+    flahs[:success] = "#{@user.name}のデータを削除しました。"
+    redirect_to users_url
   end
 
   private
