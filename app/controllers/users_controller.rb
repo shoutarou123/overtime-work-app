@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    flahs[:success] = "#{@user.name}のデータを削除しました。"
+    flash[:success] = "#{@user.name}のデータを削除しました。"
     redirect_to users_url
   end
 
