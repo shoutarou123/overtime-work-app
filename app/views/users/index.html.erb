@@ -18,7 +18,7 @@
         <td><%= user.base_pay %></td>
         <td>
           <% if current_user.admin? && !current_user?(user) %>
-            <%= link_to "削除", user, date: {turbo_method: :delete, turbo_confirm: "削除してよろしいですか？"}, class: "btn btn-danger" %>
+            <%= link_to "削除", user, data: {turbo_method: :delete, turbo_confirm: "削除してよろしいですか？"}, class: "btn btn-danger" %>
           <% end %>
         </td>
       </tr>
