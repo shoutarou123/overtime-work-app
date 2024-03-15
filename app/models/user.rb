@@ -2,12 +2,14 @@ class User < ApplicationRecord
   attr_accessor :remember_token # 「remember_token」という仮想の属性を作成します。
   
   validates :name, presence: true, length: { maximum: 50 }
+  
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i # 正規表現
   validates :email, length: { maximum: 100 }, format: { with: VALID_EMAIL_REGEX }, # 存在性の検証は不要
-  uniqueness: true, allow_blank: true, on: :update # uniqueness 一意性検証
+  uniqueness: true, allow_blank: true # uniqueness 一意性検証
   has_secure_password # passwordﾊｯｼｭ化など
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :employee_number, presence: true, on: :update
+  validates :department, length: { in: 2..15 }, allow_blank: true
   validates :base_pay, presence: true, on: :update
 
    # 渡された文字列のハッシュ値を返します。

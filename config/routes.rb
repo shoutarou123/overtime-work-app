@@ -7,5 +7,10 @@ Rails.application.routes.draw do
   post   '/login', to: 'sessions#create' # loginﾃﾞｰﾀ送信
   delete '/logout', to: 'sessions#destroy' # logout
 
-  resources :users
+  resources :users do
+    member do
+      get 'edit_basic_info'
+      patch 'update_basic_info'
+    end
+  end
 end

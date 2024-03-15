@@ -2,16 +2,31 @@
 <div>
   <table class="table table-bordered table-condensed user-table">
     <tr>
-      <td>所属</td>
       <td>職員番号</td>
+      <td>所属</td>
       <td>職</td>
-      <td>氏名：<%= @user.name %></td>
+      <td>氏名</td>
+      <td>基本給</td>
       <td>単価125</td>
       <td>単価135</td>
       <td>単価150</td>
       <td>単価160</td>
       <td>休日単価</td>
       <td>夜間単価</td>
+    </tr>
+
+    <tr>
+      <td><%= @user.employee_number %></td> <!--職員番号-->
+      <td><%= @user.department %></td> <!--所属-->
+      <td><%= @user.job_title %></td> <!--職-->
+      <td><%= @user.name %></td> <!--名前-->
+      <td><%= @user.base_pay %></td> <!--基本給-->
+      <td><%= unit_price_125(@user.base_pay) %></td> <!--単価125-->
+      <td><%= unit_price_135(@user.base_pay) %></td> <!--単価135-->
+      <td><%= unit_price_150(@user.base_pay) %></td> <!--単価150-->
+      <td><%= unit_price_160(@user.base_pay) %></td> <!--単価160-->
+      <td><%= unit_price_135(@user.base_pay) %></td> <!--休日単価-->
+      <td><%= unit_price_25(@user.base_pay) %></td> <!--夜間単価-->
     </tr>
     
   </table>

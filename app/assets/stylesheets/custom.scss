@@ -96,3 +96,12 @@ p {
     color: $state-danger-text;
   }
 }
+
+/* モーダルウインドウの位置調整 */
+.modal-dialog-center {
+  position: fixed; /* モーダルウィンドウを画面に固定 */
+  top: 50%; /* 上辺を画面の中央に配置 */
+  left: 50%; /* 左辺を画面の中央に配置 */
+  transform: translate(-50%, -50%); /* ウィンドウを中央に移動 */
+  z-index: 1050; /* 必要に応じてz-indexを調整して前面に表示 */
+}

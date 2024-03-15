@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
+  before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
+  before_action :admin_user, only: [:edit, :update, :destroy, :edit_basic_info, :update_basic_info]
+
 
   def index
     @users = User.all
@@ -43,12 +45,36 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def edit_basic_info
+  
+    respond_to do |format|
+      format.html { render partial: 'users/edit_basic_info', locals: { user: @user } }
+      format.turbo_stream
+    end
+  end
+
+  def update_basic_info
+    if @user.update(basic_info_params)
+      flash[:success] = "#{@user.name}の基本情報を更新しました。"
+    else
+      flash[:danger] = "#{@user.name}の基本情報の更新に失敗しました。<br>" + @user.errors.full_messages.join("<br>")
+    end
+
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.turbo_stream
+    end
+  end
+
   private
 
     def user_params
-      params.require(:user).permit(:employee_number, :name, :base_pay, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :employee_number, :base_pay, :password, :password_confirmation, :base_pay, :department, :job_title)
     end
 
+    def basic_info_params
+      params.require(:user).permit(:name, :email, :employee_number, :base_pay, :password, :password_confirmation, :base_pay, :department, :job_title)
+    end
      # beforeフィルター
 
     # paramsハッシュからユーザーを取得します。
@@ -68,5 +94,9 @@ class UsersController < ApplicationController
     # アクセスしたユーザーが現在ログインしているユーザーか確認します。
     def correct_user
       redirect_to(root_url) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to root_url unless current_user.admin?
     end
 end

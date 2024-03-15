@@ -13,3 +13,5 @@ ja:
           updated_at: 更新日
           employee_number: 職員番号
           base_pay: 基本給
+          department: 所属
+          job_title: 職

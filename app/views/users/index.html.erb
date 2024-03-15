@@ -5,19 +5,46 @@
   <table class="table table-condensed table-hover" id="table-users">
     <thead>
       <tr>
-        <th ><%= User.human_attribute_name :employee_number %></th>
-        <th><%= User.human_attribute_name :name %></th>
-        <th><%= User.human_attribute_name :base_pay %></th>
+        <th ><%= User.human_attribute_name :employee_number %></th> <!--職員番号-->
+        <th ><%= User.human_attribute_name :department %></th> <!--所属-->
+        <th ><%= User.human_attribute_name :job_title %></th> <!--職-->
+        <th><%= User.human_attribute_name :name %></th> <!--氏名-->
+        <% if current_user.admin? %>
+          <th><%= User.human_attribute_name :base_pay %></th> <!--基本給-->
+        <% end %>
+        <th>単価125</th>
+        <th>単価135</th>
+        <th>単価150</th>
+        <th>単価160</th>
+        <th>休日単価</th>
+        <th>夜間単価</th>
       </tr>
     </thead>
 
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.employee_number %></td>
-        <td><%= link_to user.name, user %></td>
-        <td><%= user.base_pay %></td>
+        <td><%= user.employee_number %></td> <!--職員番号-->
+        <td><%= user.department %></td> <!--所属-->
+        <td><%= user.job_title %></td> <!--職-->
+        <td>
+          <% if current_user.admin? %>
+            <%= link_to user.name, user %> <!--氏名-->
+          <% else %>
+            <%= user.name %>
+          <% end %>
+        </td>
+        <% if current_user.admin? %>
+          <td><%= user.base_pay %></td> <!--基本給-->
+        <% end %>
+        <td><%= unit_price_125(user.base_pay) %></td> <!--単価125-->
+        <td><%= unit_price_135(user.base_pay) %></td> <!--単価135-->
+        <td><%= unit_price_150(user.base_pay) %></td> <!--単価150-->
+        <td><%= unit_price_160(user.base_pay) %></td> <!--単価160-->
+        <td><%= unit_price_135(user.base_pay) %></td> <!--休日単価-->
+        <td><%= unit_price_25(user.base_pay) %></td> <!--夜間単価-->
         <td>
           <% if current_user.admin? && !current_user?(user) %>
+            <%= link_to '基本情報編集', edit_basic_info_user_path(user), data: { turbo_frame: 'modal' }, class: "btn btn-success" %>
             <%= link_to "削除", user, data: {turbo_method: :delete, turbo_confirm: "削除してよろしいですか？"}, class: "btn btn-danger" %>
           <% end %>
         </td>
