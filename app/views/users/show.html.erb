@@ -57,6 +57,11 @@
       </tr>
       <tr>
         <th>勤務</th>
+        <% @attendances.each do |day| %>
+        <td>
+          <%= select work_status[day]  %>
+        </td>
+          <% end %>
       </tr>
     </thead>
   </table>
