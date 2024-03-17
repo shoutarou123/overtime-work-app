@@ -3,15 +3,13 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :show, :edit, :update, :destroy, :edit_basic_info, :update_basic_info]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:edit, :update, :destroy, :edit_basic_info, :update_basic_info]
-
+  before_action :set_one_month, only: :show
 
   def index
     @users = User.all
   end
 
   def show
-    @first_day = Date.current.beginning_of_month
-    @last_day = @first_day.end_of_month
   end
 
   def new
@@ -74,9 +72,6 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :employee_number, :base_pay, :password, :password_confirmation, :base_pay, :department, :job_title)
     end
 
-    def basic_info_params
-      params.require(:user).permit(:name, :email, :employee_number, :base_pay, :password, :password_confirmation, :base_pay, :department, :job_title)
-    end
      # beforeフィルター
 
     # paramsハッシュからユーザーを取得します。
@@ -100,5 +95,9 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to root_url unless current_user.admin?
+    end
+
+    def basic_info_params
+      params.require(:user).permit(:name, :email, :employee_number, :base_pay, :password, :password_confirmation, :base_pay, :department, :job_title)
     end
 end

@@ -40,20 +40,19 @@
       </tr>
       <tr>
         <th>日付</th>
-          <% (@first_day..@last_day).each do |day| %>
-          <td><%= l(day, format: :short2) %></td>
+          <% @attendances.each do |day| %>
+            <td><%= l(day.worked_on, format: :short2) %></td>
           <% end %>
       </tr>
       <tr>
         <th>曜日</th>
-          <% (@first_day..@last_day).each do |day| %>
-            <td><%= $days_of_the_week[day.wday] %></td>
+          <% @attendances.each do |day| %>
+            <td><%= $days_of_the_week[day.worked_on.wday] %></td>
           <% end %>
       </tr>
       <tr>
         <th>勤務</th>
       </tr>
-      
-      </thead>
-    </table>
-  </div>
+    </thead>
+  </table>
+</div>
