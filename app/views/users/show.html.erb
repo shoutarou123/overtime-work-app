@@ -32,6 +32,11 @@
   </table>
 </div>
 
+<div class="btn-users-show">
+  <%= link_to "⇦ 前月へ", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
+  <%= link_to "次月へ ⇨", user_path(date: @first_day.next_month), class: "btn btn-info" %>
+</div>
+
 <div>
   <table class="table table-bordered table-condensed table-hover" id="table-attendaces">
     <thead>
