@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      attendance: 勤怠
     attributes:
         user:
           id: ID
@@ -15,3 +16,9 @@ ja:
           base_pay: 基本給
           department: 所属
           job_title: 職
+        attendance:
+          worked_on: 日付
+          started_at: 出勤時間
+          finished_at: 退勤時間
+          note: 備考
+          user: ユーザーID

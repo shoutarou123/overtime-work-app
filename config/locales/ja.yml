@@ -42,6 +42,8 @@ ja:
       long: "%Y年%m月%d日(%a)"
       middle: "%Y年%m月"
       short: "%-m/%-d"
+      short1: "%-m"
+      short2: "%-d"
     month_names:
     - 
     - 1月

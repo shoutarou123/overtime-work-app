@@ -31,3 +31,29 @@
     
   </table>
 </div>
+
+<div>
+  <table class="table table-bordered table-condensed table-hover" id="table-attendaces">
+    <thead>
+      <tr>
+        <th><%= l(@first_day, format: :short1) %>月</th>
+      </tr>
+      <tr>
+        <th>日付</th>
+          <% (@first_day..@last_day).each do |day| %>
+          <td><%= l(day, format: :short2) %></td>
+          <% end %>
+      </tr>
+      <tr>
+        <th>曜日</th>
+          <% (@first_day..@last_day).each do |day| %>
+            <td><%= $days_of_the_week[day.wday] %></td>
+          <% end %>
+      </tr>
+      <tr>
+        <th>勤務</th>
+      </tr>
+      
+      </thead>
+    </table>
+  </div>
