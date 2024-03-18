@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+      get 'attendances/edit_overtime_req' #残業申請
     end
   end
 end

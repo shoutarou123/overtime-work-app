@@ -6,6 +6,15 @@ User.create!(name: "管理者",
              password_confirmation: "password",
              admin: true)
 
+User.create!(name: "所属長",
+             employee_number: 000,
+             department: "A署",
+             job_title: "署長",
+             base_pay: 500000,
+             password: "password",
+             password_confirmation: "password",
+             superior: true)
+
 User.create!(name: "職員A",
              employee_number: 001,
              department: "A署",
