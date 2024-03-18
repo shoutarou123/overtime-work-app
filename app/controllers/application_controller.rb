@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   include SessionsHelper # SessionsHelperをapplicationで呼びどこでも使えるようにしている
 
   $days_of_the_week = %w{日 月 火 水 木 金 土}
-  work_status = [["当", "当"], ["1", "1"], ["2", "2"], ["3", "3"]]
-
   # ページ出力前に1ヶ月分のデータの存在を確認・セットします。
   def set_one_month
     @first_day = params[:date].nil? ?

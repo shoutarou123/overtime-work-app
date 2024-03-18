@@ -34,6 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_17_042910) do
     t.boolean "admin", default: false
     t.string "department"
     t.string "job_title"
+    t.string "work_status"
     t.index ["email"], name: "index_users_on_email"
   end
 

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :attendances, dependent: :destroy
   attr_accessor :remember_token # 「remember_token」という仮想の属性を作成します。
+  enum work_status: { 当: '当', "1": '1', "2": '1', "3": '3', "4": '4', "1+4": '1+4', 週: '週', 年: '年', 夏: '夏'}
   
   validates :name, presence: true, length: { maximum: 50 }
   

@@ -33,15 +33,15 @@
 </div>
 
 <div class="btn-users-show">
-  <%= link_to "⇦ 前月へ", user_path(date: @first_day.prev_month), class: "btn btn-info" %>
-  <%= link_to "次月へ ⇨", user_path(date: @first_day.next_month), class: "btn btn-info" %>
+  <%= link_to "⇦ 前月へ", user_path(date: @first_day.prev_month), class: "btn btn-default" %>
+  <%= link_to "次月へ ⇨", user_path(date: @first_day.next_month), class: "btn btn-default" %>
 </div>
 
 <div>
   <table class="table table-bordered table-condensed table-hover" id="table-attendaces">
     <thead>
       <tr>
-        <th><%= l(@first_day, format: :short1) %>月</th>
+        <p><%= l(@first_day, format: :short1) %>月</p>
       </tr>
       <tr>
         <th>日付</th>
@@ -57,12 +57,17 @@
       </tr>
       <tr>
         <th>勤務</th>
-        <% @attendances.each do |day| %>
-        <td>
-          <%= select work_status[day]  %>
-        </td>
-          <% end %>
+          <%= form_with(model: @user, local: true) do |f| %>
+            <% (@first_day..@last_day).each do |date| %>
+              <td>
+                <%= f.select "work_status_#{date.day}", options_for_select(User.work_statuses.map { |status, value| [status, value] }), {}, class: 'work-status-select' %>
+              </td>
+            <% end %>
       </tr>
     </thead>
   </table>
 </div>
+      <div>
+        <%= f.submit %>
+        <% end %>
+      </div>
