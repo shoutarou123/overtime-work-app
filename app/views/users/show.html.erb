@@ -60,7 +60,7 @@
           <%= form_with(model: @user, local: true) do |f| %>
             <% (@first_day..@last_day).each do |date| %>
               <td>
-                <%= f.select "work_status_#{date.day}", options_for_select(User.work_statuses.map { |status, value| [status, value] }), {}, class: 'work-status-select' %>
+                <%= f.select "work_status_#{date.day}", options_for_select(User.work_statuses.map { |status, value| [status, value] }) %>
               </td>
             <% end %>
       </tr>
