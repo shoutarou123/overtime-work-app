@@ -1,0 +1,34 @@
+<%= provide(:title, 'overtime-req') %>
+
+<div>
+  <table class="table table-bordered table-condensed user-table">
+    <%= form_with(model: @user, url: attendances_update_overtime_req_users_path, local: true, method: :patch) do |f| %>
+    <tr>
+      <td>起案</td>
+      <td>氏名</td>
+      <td>日付</td>
+      <td>曜日</td>
+      <td>当非週</td>
+      <td>夜間通信勤務時間</td>
+      <td>開始予定時間</td>
+      <td>終了予定時間</td>
+      <td>勤務内容</td>
+    </tr>
+    <tr>
+      <td><%= current_user.name %></td> <!--起案-->
+      <td><%= f.collection_select :user_id, User.all, :id, :name, include_blank: "選択して下さい" %></td> <!--氏名-->
+      <td></td> <!--日付-->
+      <td></td> <!--曜日-->
+      <td>
+        <%= f.select "work_type", options_for_select(Attendance.work_types.map { |type, value| [type, value] }) %>
+      </td> <!--当非週-->
+      <td></td> <!--夜間通信勤務時間-->
+      <td></td> <!--開始予定時間-->
+      <td> <!--終了予定時間-->
+        <%= attendance.time_select :ended_at, { include_blank: true }, id: 'time-select', class: "form-control" %>
+      </td>
+      <td></td> <!--勤務内容-->
+    </tr>
+    <% end %>
+  </table>
+</div>
