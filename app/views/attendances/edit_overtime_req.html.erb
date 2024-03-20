@@ -15,25 +15,15 @@
         <td>勤務内容</td>
       </tr>
       <tr>
-          <td>
-            <%= current_user.name %> <!--起案-->
-          </td>
-          <td>
-            <%= f.collection_select :user_id, User.all, :id, :name, include_blank: "選択して下さい" %> <!--氏名-->
-          </td>
-          <td></td> <!--日付-->
-          <td></td> <!--曜日-->
-          <td>
-            <%= f.select "work_type", options_for_select(Attendance.work_types.map { |type, value| [type, value] }) %> <!--当非週-->
-          </td>
-          <td></td> <!--夜間通信勤務時間-->
-          <td>
-            <%= f.time_select :plan_started_at, { include_blank: true } %> <!--開始予定時間-->
-          </td>
-          <td>
-            <%= f.time_select :plan_finished_at, { include_blank: true } %> <!--終了予定時間-->
-          </td>
-          <td></td> <!--勤務内容-->
+          <td><%= current_user.name %></td> <!--起案-->
+          <td><%= f.collection_select :user_id, User.all, :id, :name, include_blank: "選択して下さい" %></td> <!--氏名-->
+          <td><%= f.date_select :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
+          <td><%= select_tag 'day_of_the_week', options_for_select($days_of_the_week), include_blank: true %></td> <!--曜日-->
+          <td><%= f.select "work_type", options_for_select(Attendance.work_types.map { |type, value| [type, value] }), include_blank: true %></td> <!--当非週-->
+          <td><%= f.select "communication_work_type", options_for_select(Attendance.communication_work_types.map { |type, value| [type, value] }), include_blank: true %></td> <!--夜間通信勤務時間-->
+          <td><%= f.time_select :plan_started_at, { include_blank: true } %></td> <!--開始予定時間-->
+          <td><%= f.time_select :plan_finished_at, { include_blank: true } %></td> <!--終了予定時間-->
+          <td><%= f.text_field :work_content, placeholder: "入力してください" %></td> <!--勤務内容-->
       </tr>
     <% end %>
   </table>

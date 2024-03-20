@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.datetime "updated_at", null: false
     t.datetime "plan_started_at"
     t.datetime "plan_finished_at"
+    t.string "work_content"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
