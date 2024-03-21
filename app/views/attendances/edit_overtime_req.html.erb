@@ -16,7 +16,6 @@
     </tr>
 
     <%= form_with(model: @user, url: attendances_update_overtime_req_users_path, local: true, method: :patch) do |f| %>
-    <% 5.times do %>
     <tr>
       <td><%= current_user.name %></td> <!--起案-->
       <td><%= f.collection_select :user_id, User.all, :id, :name, include_blank: "選択して下さい" %></td> <!--氏名-->
@@ -28,7 +27,6 @@
       <td><%= f.time_select :plan_finished_at, { include_blank: true } %></td> <!--終了予定時間-->
       <td><%= f.text_field :work_content, placeholder: "入力してください" %></td> <!--勤務内容-->
     </tr>
-    <% end %>
   </table>
     <%= f.submit "申請を送信する", class: "btn btn-primary " %>
     <% end %>
