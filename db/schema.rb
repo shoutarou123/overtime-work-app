@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.string "work_type"
     t.string "communication_work_type"
     t.string "day_of_week"
+    t.string "overwork_status"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 

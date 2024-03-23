@@ -8,5 +8,6 @@ class AddPlanStartedAtToAttendances < ActiveRecord::Migration[7.0]
     add_column :attendances, :work_type, :string
     add_column :attendances, :communication_work_type, :string
     add_column :attendances, :day_of_week, :string
+    add_column :attendances, :overwork_status, :string
   end
 end

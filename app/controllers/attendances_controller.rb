@@ -16,6 +16,7 @@ class AttendancesController < ApplicationController
         flag = 1
       end
       if flag == 1
+        attendance.overwork_status = "申請中"
         flash[:success] = "時間外勤務申請を送信しました。"
       else
         flash[:danger] = "未入力な項目があったため、申請をキャンセルしました。"
