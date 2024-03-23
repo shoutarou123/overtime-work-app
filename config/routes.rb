@@ -10,13 +10,11 @@ Rails.application.routes.draw do
 
 
   resources :users do
-    collection do
-      get 'attendances/edit_overtime_req' #残業申請
-      patch 'attendances/update_overtime_req' #残業申請先
-    end
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
+      get 'attendances/edit_overtime_req' #残業申請
+      patch 'attendances/update_overtime_req' #残業申請先
     end
   end
 end

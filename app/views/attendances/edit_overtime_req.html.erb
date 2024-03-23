@@ -15,10 +15,10 @@
       <td>勤務内容</td>
     </tr>
 
-    <%= form_with(model: @user, url: attendances_update_overtime_req_users_path, local: true, method: :patch) do |f| %>
+    <%= form_with(model: @user, url: '#', local: true, method: :patch) do |f| %>
     <tr>
       <td><%= current_user.name %></td> <!--起案-->
-      <td><%= f.collection_select :user_id, User.all, :id, :name, include_blank: "選択して下さい" %></td> <!--氏名-->
+      <td><%= @user.name %></td> <!--氏名-->
       <td><%= f.date_select :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
       <td><%= select_tag 'day_of_the_week', options_for_select($days_of_the_week), include_blank: true %></td> <!--曜日-->
       <td><%= f.select "work_type", options_for_select(Attendance.work_types.map { |type, value| [type, value] }), include_blank: true %></td> <!--当非週-->
