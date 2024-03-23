@@ -3,30 +3,38 @@
 
 <div>
   <table class="table table-bordered table-condensed user-table">
-    <tr>
-      <td>起案</td>
-      <td>氏名</td>
-      <td>日付</td>
-      <td>曜日</td>
-      <td>当非週</td>
-      <td>夜間通信勤務時間</td>
-      <td>開始予定時間</td>
-      <td>終了予定時間</td>
-      <td>勤務内容</td>
-    </tr>
+    <%= form_with(model: @user, url: attendances_update_overtime_req_user_path, local: true, method: :patch) do |f| %>
+      <thead>
+        <tr>
+          <td>起案</td>
+          <td>氏名</td>
+          <td>日付</td>
+          <td>曜日</td>
+          <td>当非週</td>
+          <td>夜間通信勤務時間</td>
+          <td>開始予定時間</td>
+          <td>終了予定時間</td>
+          <td>勤務内容</td>
+          <td>申請先</td>
+        </tr>
+      </thead>
 
-    <%= form_with(model: @user, url: '#', local: true, method: :patch) do |f| %>
-    <tr>
-      <td><%= current_user.name %></td> <!--起案-->
-      <td><%= @user.name %></td> <!--氏名-->
-      <td><%= f.date_select :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
-      <td><%= select_tag 'day_of_the_week', options_for_select($days_of_the_week), include_blank: true %></td> <!--曜日-->
-      <td><%= f.select "work_type", options_for_select(Attendance.work_types.map { |type, value| [type, value] }), include_blank: true %></td> <!--当非週-->
-      <td><%= f.select "communication_work_type", options_for_select(Attendance.communication_work_types.map { |type, value| [type, value] }), include_blank: true %></td> <!--夜間通信勤務時間-->
-      <td><%= f.time_select :plan_started_at, { include_blank: true } %></td> <!--開始予定時間-->
-      <td><%= f.time_select :plan_finished_at, { include_blank: true } %></td> <!--終了予定時間-->
-      <td><%= f.text_field :work_content, placeholder: "入力してください" %></td> <!--勤務内容-->
-    </tr>
+      <tbody>
+          <%= f.fields_for "attendances[]", @attendance do |attendance| %>
+            <tr>
+              <td><%= current_user.name %></td> <!--起案-->
+              <td><%= @user.name %></td> <!--氏名-->
+              <td><%= attendance.date_select :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
+              <td><%= attendance.select :day_of_week, ["日", "月", "火", "水", "木", "金", "土"], {} %></td></td> <!--曜日-->
+              <td><%= attendance.select :work_type, ["当", "非", "週", "日"], {} %></td> <!--当非週-->
+              <td><%= attendance.select :communication_work_type, ["なし", "22～24", "0～2", "2～4", "4～6"], {} %></td> <!--夜間通信勤務時間-->
+              <td><%= attendance.time_select :plan_started_at, { include_blank: true } %></td> <!--開始予定時間-->
+              <td><%= attendance.time_select :plan_finished_at, { include_blank: true } %></td> <!--終了予定時間-->
+              <td><%= attendance.text_field :work_content, placeholder: "入力してください" %></td> <!--勤務内容-->
+              <td><%= attendance.collection_select(:confirmed_request, @superior, :name, :name, { include_blank: true }) %></td> <!--指示者確認㊞-->
+            </tr>
+          <% end %>
+      </tbody>
   </table>
     <%= f.submit "申請を送信する", class: "btn btn-primary " %>
     <% end %>

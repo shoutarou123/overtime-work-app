@@ -46,8 +46,8 @@
           <% if current_user.admin? && !current_user?(user) %>
             <%= link_to '基本情報編集', edit_basic_info_user_path(user), data: { turbo_frame: 'modal' }, class: "btn btn-success" %>
             <%= link_to "削除", user, data: {turbo_method: :delete, turbo_confirm: "削除してよろしいですか？"}, class: "btn btn-danger" %>
+            <%= link_to "職員詳細画面", user_path(user), class: "btn btn-primary" %>
           <% end %>
-            <%= link_to "時間外勤務申請", attendances_edit_overtime_req_user_path(user), class: "btn btn-primary" %>
         </td>
       </tr>
     <% end %>
