@@ -32,7 +32,7 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:id])
     @attendances = Attendance.where(confirmed_request: @user.name, overwork_status: "申請中")
     @users = User.where(id: @attendances.select(:user_id))
-    
+
       respond_to do |format|
         format.html { render partial: 'attendances/edit_overtime_aprv', locals: { attendance: @attendance } }
         format.turbo_stream

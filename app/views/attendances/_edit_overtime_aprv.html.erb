@@ -12,7 +12,7 @@
           <% @users.each do |user| %>
             <h1 class="modal-title"><%= "#{user.name}の時間外勤務申請"%></h1>
       </div>
-      
+
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
@@ -29,14 +29,14 @@
                 <td>終了予定時間</td>
                 <td>勤務内容</td>
                 <td></td>
-               </tr> 
+               </tr>
              </thead>
 
              <tbody>
                <% @attendances.where(user_id: user.id).each do |day| %>
                  <tr class="text-center">
                   <td><%= day.planner %></td> <!--起案-->
-                  <td><%= user.name %></td> <!--氏名-->
+                  <td></td> <!--氏名-->
                   <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
                   <td><%= day.day_of_week %></td> <!--曜日-->
                   <td><%= day.work_type %></td> <!--当非週-->
@@ -50,7 +50,7 @@
              </tbody>
             </table>
           </div>
-        </div> 
+        </div>
       </div>
       <button type="button" class="btn btn-default btn-<%= yield(:class_text) %>" data-action="edit-overtime-aprv#close">
         キャンセル
