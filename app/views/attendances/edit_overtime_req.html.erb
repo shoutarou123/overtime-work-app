@@ -22,7 +22,7 @@
       <tbody>
           <%= f.fields_for "attendances[]", @attendance do |attendance| %>
             <tr>
-              <td><%= current_user.name %></td> <!--起案-->
+              <td><%= attendance.collection_select(:planner, @office_staff, :name, :name, { include_blank: true }) %></td> <!--起案-->
               <td><%= @user.name %></td> <!--氏名-->
               <td><%= attendance.date_select :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
               <td><%= attendance.select :day_of_week, ["日", "月", "火", "水", "木", "金", "土"], {} %></td></td> <!--曜日-->

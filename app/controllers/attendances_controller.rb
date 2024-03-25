@@ -5,6 +5,7 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:id])
     @attendance = Attendance.find(params[:id])
     @superior = User.where(superior: true)
+    @office_staff = User.where(office_staff: true)
   end
 
   def update_overtime_req # 残業申請送信先
@@ -42,5 +43,5 @@ end
 
 private
   def overtime_req_params
-    params.require(:user).permit(attendances: [:day_of_week, :work_type, :communication_work_type, :plan_started_at, :plan_finished_at, :work_content, :confirmed_request])[:attendances]
+    params.require(:user).permit(attendances: [:planner, :worked_on, :day_of_week, :work_type, :communication_work_type, :plan_started_at, :plan_finished_at, :work_content, :confirmed_request] )[:attendances]
   end

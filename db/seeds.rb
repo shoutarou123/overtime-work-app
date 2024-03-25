@@ -4,7 +4,8 @@ User.create!(name: "管理者",
              password: "password",
              base_pay: 305900,
              password_confirmation: "password",
-             admin: true)
+             admin: true,
+             office_staff: true)
 
 User.create!(name: "所属長",
              employee_number: 000,
