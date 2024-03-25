@@ -1,7 +1,7 @@
 
 <% provide(:title, @user.name) %>
 
-<%= form_with(model: @user, url: '#', local: true, method: :patch) do |f| %>
+<%= form_with(model: @user, url: attendances_update_one_month_user_path(date: @first_day), local: true, method: :patch) do |f| %>
   <div class="col-md-10 col-md-offset-1">
     <h1 class="user-title">勤務編集画面</h1>
       <table class="table table-bordered table-condensed table-striped" id="table-attendances">
@@ -28,7 +28,7 @@
                 <td class="<%= class_for_day %>"> <!--上記で曜日指定し、代入したものをここで記述している。更に色指定をCSSで行う。-->
                   <%= $days_of_the_week[day.worked_on.wday] %>
                 </td>
-                <td><%= attendance.text_field :work_content, class: "form-control" %></td> <!--備考-->
+                <td><%= attendance.text_field :work_status, class: "form-control" %></td> <!--備考-->
               </tr>
             <% end %>
           <% end %>

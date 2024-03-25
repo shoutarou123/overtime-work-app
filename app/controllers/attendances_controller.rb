@@ -62,7 +62,7 @@ end
 private
 
   def attendances_params
-    params.require(:user).permit(attendances: [:work_content])[:attendances]
+    params.require(:user).permit(attendances: [:work_status])[:attendances]
   end
 
   def overtime_req_params
