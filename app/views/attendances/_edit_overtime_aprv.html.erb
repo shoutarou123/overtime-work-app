@@ -1,0 +1,44 @@
+<% provide(:class_text, 'edit-overtime-aprv') %>
+<% provide(:button_text, '更新') %>
+
+<%= turbo_frame_tag 'modal' do %>
+  <div class="modal-dialog modal-lg modal-dialog-center" data-controller="edit-overtime-aprv">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-action="edit-overtime-aprv#close" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+          <%= form_with(model: @user, url: '#', local: false, method: :patch, data: { action: "submit->edit-overtime-aprv#submit" }) do |f| %>
+          <% @users.each do |user| %>
+            <h1 class="modal-title"><%= "#{user.name}の時間外勤務申請"%></h1>
+      </div>
+      
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            
+             <thead>
+               <tr>
+                <td>起案</td>
+                <td>氏名</td>
+                <td>日付</td>
+                <td>曜日</td>
+                <td>当非週</td>
+                <td>夜間通信勤務時間</td>
+                <td>開始予定時間</td>
+                <td>終了予定時間</td>
+                <td>勤務内容</td>
+               </tr>  
+              </thead>
+             
+          </div>
+        </div> 
+      </div>
+      <button type="button" class="btn btn-default btn-<%= yield(:class_text) %>" data-action="edit-overtime-aprv#close">
+        キャンセル
+      </button>
+        <% end %>
+        <% end %>
+    </div>
+  </div>
+<% end %>

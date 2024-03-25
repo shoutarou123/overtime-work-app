@@ -3,7 +3,7 @@
 
 <div>
   <table class="table table-bordered table-condensed user-table">
-    <%= form_with(model: @user, url: attendances_update_overtime_req_user_path, local: true, method: :patch) do |f| %>
+    <%= form_with(model: @user, url: attendances_update_overtime_req_user_path(id: params[:id]), local: true, method: :patch) do |f| %>
       <thead>
         <tr>
           <td>起案</td>

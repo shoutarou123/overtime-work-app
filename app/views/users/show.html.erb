@@ -34,7 +34,7 @@
 
 <% if @aprv_count > 0 %>
   <div>
-    <%= link_to "【時間外勤務申請のお知らせ】", attendances_edit_overtime_aprv_user_path(date: @first_day) %> <!--引数はそのuserの月初-->
+    <%= link_to "【時間外勤務申請のお知らせ】", attendances_edit_overtime_aprv_user_path, data: { turbo_frame: 'modal' } %> <!--引数はそのuserの月初-->
       <span class="notification-badge">
         <%= "#{@aprv_count}件の通知があります" %>
       </span>
