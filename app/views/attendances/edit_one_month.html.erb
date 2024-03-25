@@ -1,0 +1,42 @@
+
+<% provide(:title, @user.name) %>
+
+<%= form_with(model: @user, url: '#', local: true, method: :patch) do |f| %>
+  <div class="col-md-10 col-md-offset-1">
+    <h1 class="user-title">勤務編集画面</h1>
+      <table class="table table-bordered table-condensed table-striped" id="table-attendances">
+        <thead>
+          <tr class="text-center">
+             <td>日付</td>
+             <td>曜日</td>
+             <td>勤務</td>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @attendances.each do |day| %>
+            <%= f.fields_for "attendances[]", day do |attendance| %> <!--各ﾌｫｰﾑのinputﾀｸﾞのname属性にattendances[id][ｶﾗﾑ名]という形式で展開されるようになる-->
+              <tr class="text-center">                                                  <!--dayは繰り返し処理されている@attendancesからなる1つのAttendanceｵﾌﾞｼﾞｪｸﾄを指す-->
+                <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
+                  <% class_for_day = case $days_of_the_week[day.worked_on.wday]
+                    when '土'
+                        'text-primary'
+                    when '日'
+                        'text-danger'
+                    end
+                  %>
+                <td class="<%= class_for_day %>"> <!--上記で曜日指定し、代入したものをここで記述している。更に色指定をCSSで行う。-->
+                  <%= $days_of_the_week[day.worked_on.wday] %>
+                </td>
+                <td><%= attendance.text_field :work_content, class: "form-control" %></td> <!--備考-->
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    <div class="center">
+      <%= link_to "キャンセル", user_path(date: @first_day), class: "btn btn-lg btn-default" %>
+      <%= f.submit "まとめて更新", class: "btn btn-lg btn-primary" %>
+    </div>
+  </div>
+<% end %>

@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.string "overwork_status"
     t.string "overtime_instructor"
     t.string "planner"
+    t.string "work_status"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
@@ -45,7 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.boolean "admin", default: false
     t.string "department"
     t.string "job_title"
-    t.string "work_status"
     t.boolean "superior", default: false
     t.boolean "office_staff", default: false
     t.index ["email"], name: "index_users_on_email"

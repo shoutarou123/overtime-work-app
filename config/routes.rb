@@ -13,8 +13,10 @@ Rails.application.routes.draw do
     member do
       get 'edit_basic_info'
       patch 'update_basic_info'
-      get 'attendances/edit_overtime_req' #残業申請
-      patch 'attendances/update_overtime_req' #残業申請先
+      get 'attendances/edit_one_month' # 勤務編集画面
+      patch 'attendances/update_one_month' # 勤務編集更新機能
+      get 'attendances/edit_overtime_req' # 時間外勤務申請
+      patch 'attendances/update_overtime_req' # 時間外勤務申請先
       get 'attendances/edit_overtime_aprv' # 所属長が時間外勤務申請確認する画面
     end
   end
