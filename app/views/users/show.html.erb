@@ -44,10 +44,7 @@
 <div class="btn-users-show">
   <%= link_to "⇦ 前月へ", user_path(date: @first_day.prev_month), class: "btn btn-default" %>
   <%= link_to "次月へ ⇨", user_path(date: @first_day.next_month), class: "btn btn-default" %>
-</div>
-
-<div class="btn">
-  <%= link_to "勤務編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary" %>
+  <%= link_to "勤務編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-success" %>
 </div>
 
 <div>
