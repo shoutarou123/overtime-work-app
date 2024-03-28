@@ -5,13 +5,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-action="edit-overtime-req#close" aria-label="Close">
-          <span aria-hidden="true">×</span>
+          <%= link_to "×", '#', data: { controller: "modals", action: 'modals#click->close' } %>
         </button>
         <h1 class="modal-title"><%= @user.name%>の時間外勤務申請</h1>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6 col-md-offset-1">
+          <div class="col-md-11 col-md-offset-1">
             <%= form_with(model: @user, url: attendances_update_overtime_req_user_path(date: params[:date]), local: false, method: :patch, data: { action: "submit->edit-overtime-req" }) do |f| %>
               <table class="table table-striped table-bordered table-sm">
                 <thead>
@@ -36,27 +36,29 @@
                   <%= f.fields_for "attendances[]", @attendance do |attendance| %>
                     <tr class="text-center">
                       <td rowspan="2"><%= attendance.collection_select(:planner, @office_staff, :name, :name, { include_blank: true }) %></td> <!--起案-->
-                      <td rowspan="2"><%= attendance.date_select :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
+                      <td rowspan="2"><%= attendance.date_field :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
                       <td rowspan="2"><%= attendance.select :day_of_week, ["日", "月", "火", "水", "木", "金", "土"], {} %></td></td> <!--曜日-->
                       <td rowspan="2"><%= attendance.select :work_type, ["当", "非", "週", "日"], {} %></td> <!--当非週-->
                       <td rowspan="2"><%= attendance.select :communication_work_type, ["なし", "22～24", "0～2", "2～4", "4～6"], {} %></td> <!--夜間通信勤務時間-->
-                      <td><%= attendance.time_select :plan_started_at, { include_blank: true } %></td> <!--開始予定時間-->
-                      <td><%= attendance.time_select :plan_finished_at, { include_blank: true } %></td> <!--終了予定時間-->
+                      <td><%= attendance.time_field :plan_started_at, { include_blank: true } %></td> <!--開始予定時間-->
+                      <td><%= attendance.time_field :plan_finished_at, { include_blank: true } %></td> <!--終了予定時間-->
                       <td rowspan="2"><%= attendance.text_field :work_content, placeholder: "入力してください" %></td> <!--勤務内容-->
                       <td rowspan="2"><%= attendance.collection_select(:confirmed_request, @superior, :name, :name, { include_blank: true }) %></td> <!--指示者確認㊞-->
                     </tr>
 
                     <tr>
-                    <td><%= attendance.time_select :started_at, { include_blank: true } %></td> <!--開始時間-->
-                    <td><%= attendance.time_select :finished_at, { include_blank: true } %></td> <!--終了時間-->
+                    <td><%= attendance.time_field :started_at, { include_blank: true } %></td> <!--開始時間-->
+                    <td><%= attendance.time_field :finished_at, { include_blank: true } %></td> <!--終了時間-->
                     </tr>
                   <% end %>
                 </tbody>
               </table>
+              <div class="center">
               <%= f.submit "申請", class: "btn btn-primary btn-edit-overtime-req" %>
               <button type="button" class="btn btn-default btn-edit-overtime-req" data-action="edit-overtime-req#close">
-                キャンセル
+                <%= link_to 'キャンセル', '#', data: { controller: "modals", action: 'modals#click->close' } %>
               </button>
+              </div>
             <% end %>
           </div>
         </div>
