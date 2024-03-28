@@ -25,7 +25,7 @@ class AttendancesController < ApplicationController
     @attendance = @user.attendances.find_by(worked_on: params[:date])
     @superior = User.where(superior: true)
     @office_staff = User.where(office_staff: true)
-    
+
     respond_to do |format|
       format.html { render partial: 'attendances/edit_overtime_req', locals: { attendance: @attendance } }
       format.turbo_stream
@@ -33,10 +33,11 @@ class AttendancesController < ApplicationController
   end
 
   def update_overtime_req # 残業申請送信先
+    @user = User.find(params[:id])
     overtime_req_params.each do |id, item|
       attendance = Attendance.find(id)
-      if item["plan_started_at(4i)"].blank? || item["plan_started_at(5i)"].blank? || item["plan_finished_at(4i)"].blank? || item["plan_finished_at(5i)"].blank? || item[:work_content].blank? && item[:confirmed_request].blank?
-        flag = 1
+      if item[:planner].blank? || item[:worked_on].blank? || item[:work_type].blank? || item[:communication_work_type].blank? || item[:plan_started_at].blank? || item[:plan_finished_at].blank? || item[:work_content].blank? && item[:confirmed_request].blank?
+        flag = 1 if item[:approved] == '1'
       else
         flag = 1
       end
@@ -49,7 +50,7 @@ class AttendancesController < ApplicationController
         flash[:danger] = "未入力な項目があったため、申請をキャンセルしました。"
       end
     end
-    redirect_to users_url
+    redirect_to user_url
   end
 
   def edit_overtime_aprv
@@ -71,6 +72,5 @@ private
   end
 
   def overtime_req_params
-    params.require(:user).permit(attendances: [:planner, :worked_on, :day_of_week, :work_type, :communication_work_type, :plan_started_at, :plan_finished_at, :work_content, :confirmed_request]
-  )[:attendances]
+    params.require(:user).permit(attendances: [:planner, :worked_on, :work_type, :communication_work_type, :plan_started_at, :plan_finished_at, :work_content, :confirmed_request])[:attendances]
   end
