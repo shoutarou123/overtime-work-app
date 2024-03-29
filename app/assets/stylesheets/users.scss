@@ -47,7 +47,7 @@
 
 #table-users {
   td {
-    text-align: left;
+    text-align: center;
   }
 }
 
@@ -60,4 +60,9 @@
 .btn-basic-info {
   margin: 15px 0;
   width: 30%;
+}
+
+// 【残業申請のお知らせ】
+.sp-link {
+  color: red;
 }
