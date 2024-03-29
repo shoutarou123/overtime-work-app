@@ -28,7 +28,6 @@
                 <td>開始予定時間</td>
                 <td>終了予定時間</td>
                 <td>勤務内容</td>
-                <td></td>
                </tr>
              </thead>
 
@@ -44,7 +43,6 @@
                   <td><%= l(day.plan_started_at, format: :time) %></td> <!--開始予定時間-->
                   <td><%= l(day.plan_finished_at, format: :time) %></td> <!--終了予定時間-->
                   <td><%= day.work_content %></td> <!--勤務内容-->
-                  <td><%= day.confirmed_request %></td> <!--勤務内容-->
                  </tr>
                <% end %>
              </tbody>
