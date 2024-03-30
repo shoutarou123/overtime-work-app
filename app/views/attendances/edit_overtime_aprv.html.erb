@@ -1,0 +1,51 @@
+<% provide(:class_text, 'edit-overtime-aprv') %>
+
+<%= form_with(model: @user, url: '#', local: false, method: :patch, data: { action: "submit->edit-overtime-aprv#submit" }) do |f| %>
+  <% @users.each do |user| %>
+    <h1 class="title"><%= "#{user.name}の時間外勤務申請"%></h1>
+
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table table-striped table-bordered table-condensed">
+            <thead>
+              <tr class="text-center">
+                <td>起案</td>
+                <td>日付</td>
+                <td>曜日</td>
+                <td>当非週</td>
+                <td>夜間通信勤務時間</td>
+                <td>開始予定時間</td>
+                <td>終了予定時間</td>
+                <td>勤務内容</td>
+                <td>所属長確認㊞</td>
+                <td>決定</td>
+                <td>勤務を確認する</td>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @attendances.where(user_id: user.id).each do |day| %>
+                <%= f.fields_for "attendances[]", day do |attendance| %>
+                  <tr class="text-center">
+                    <td><%= day.planner %></td> <!--起案-->
+                    <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
+                    <td><%= $days_of_the_week[day.worked_on.wday] %></td> <!--曜日-->
+                    <td><%= day.work_type %></td> <!--当非週-->
+                    <td><%= day.communication_work_type %></td> <!--夜間通信勤務時間-->
+                    <td><%= l(day.plan_started_at, format: :time) %></td> <!--開始予定時間-->
+                    <td><%= l(day.plan_finished_at, format: :time) %></td> <!--終了予定時間-->
+                    <td><%= day.work_content %></td> <!--勤務内容-->
+                    <td><%= attendance.select :overwork_status, ['承認', '否認'], {}, { class: 'form-control' } %></td> <!--指示者確認㊞-->
+                    <td><%= attendance.check_box :overwork_chk %></td> <!--決定-->
+                    <td><%= link_to "確認", user_path(user, date: day.worked_on.beginning_of_month), target: "_blank", class: "btn btn-primary" %></td> <!--userにcurrent_userが入っている-->
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -12,5 +12,6 @@ class AddPlanStartedAtToAttendances < ActiveRecord::Migration[7.0]
     add_column :attendances, :overtime_instructor, :string # 時間外勤務データ保存場所と思われる
     add_column :attendances, :planner, :string # 起案者
     add_column :attendances, :work_status, :string # 当,非,週,日,年,夏,特
+    add_column :attendances, :overwork_chk, :boolean, default: false
   end
 end
