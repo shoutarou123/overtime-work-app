@@ -62,7 +62,25 @@ class AttendancesController < ApplicationController
 
   def update_overtime_aprv
     @user = User.find(params[:id])
-
+      flag = 0
+      overtime_aprv_params.each do |id, item|
+        if item[:overwork_chk] == '1'
+          unless item[:overwork_status] == "否認"
+            flag += 1
+            attendance = Attendance.find(id)
+            if item[:overwork_status] == "否認"
+              attendance.work_content = nil
+            end
+            attendance.update(item)
+          end
+        end
+      end
+      if flag > 0
+        flash[:success] = "時間外勤務申請を更新しました。"
+      else
+        flash[:danger] = "時間外勤務申請の更新に失敗しました。"
+      end
+      redirect_to user_url(date: params[:date])
   end
 
 end
@@ -75,4 +93,8 @@ private
 
   def overtime_req_params
     params.require(:user).permit(attendances: [:planner, :worked_on, :work_type, :communication_work_type, :plan_started_at, :plan_finished_at, :work_content, :confirmed_request])[:attendances]
+  end
+
+  def overtime_aprv_params
+    params.require(:user).permit(attendances: [:overwork_status, :overwork_chk])[:attendances]
   end

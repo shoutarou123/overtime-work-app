@@ -112,7 +112,7 @@
           <td> <!--命令・確認㊞-->
             <% if day.overwork_status == "申請中" %>
               <%= "#{day.confirmed_request}へ時間外勤務#{day.overwork_status}" %>
-            <% elsif day.overwork_status == "命令" %>
+            <% elsif day.overwork_status == "承認" %>
               <%= "時間外#{day.overwork_status}中" %>
             <% elsif day.overwork_status == "否認" %>
               <%= "時間外申請#{day.overwork_status}" %>

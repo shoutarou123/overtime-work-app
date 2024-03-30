@@ -1,6 +1,6 @@
 <% provide(:class_text, 'edit-overtime-aprv') %>
 
-<%= form_with(model: @user, url: '#', local: false, method: :patch, data: { action: "submit->edit-overtime-aprv#submit" }) do |f| %>
+<%= form_with(model: @user, url: attendances_update_overtime_aprv_user_path, local: true, method: :patch) do |f| %>
   <% @users.each do |user| %>
     <h1 class="title"><%= "#{user.name}の時間外勤務申請"%></h1>
 
@@ -48,4 +48,5 @@
       </div>
     </div>
   <% end %>
+  <%= f.submit "決定を送信する", class: "btn btn-primary btn-md" %>
 <% end %>
