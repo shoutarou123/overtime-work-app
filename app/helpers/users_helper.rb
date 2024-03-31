@@ -4,7 +4,7 @@ module UsersHelper
     (base_pay*12/1875.5*125/100).round
   end
 
-  def unit_price_135(base_pay) # 単価125(休日単価)
+  def unit_price_135(base_pay) # 単価135(休日単価)
     (base_pay*12/1875.5*135/100).round
   end
 

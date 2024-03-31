@@ -33,6 +33,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.string "work_status"
     t.boolean "overwork_chk", default: false
     t.string "send_approval"
+    t.integer "unit_h_125"
+    t.integer "unit_m_125"
+    t.integer "unit_h_135"
+    t.integer "unit_m_135"
+    t.integer "unit_h_150"
+    t.integer "unit_m_150"
+    t.integer "unit_h_160"
+    t.integer "unit_m_160"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
