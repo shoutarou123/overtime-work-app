@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @aprv_count = Attendance.where(confirmed_request: @user.name, overwork_status: "申請中").count # 時間外勤務申請のお知らせ件数
+    @app_count = Attendance.where(send_approval: @user.name, overwork_status: "承認").count
   end
 
   def new

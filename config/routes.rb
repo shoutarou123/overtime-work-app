@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       patch 'attendances/update_overtime_req' # 時間外勤務申請先
       get 'attendances/edit_overtime_aprv' # 所属長が時間外勤務申請確認する画面
       patch 'attendances/update_overtime_aprv' # 所属長が申請された時間外勤務内容を送信する先
+      get 'attendances/update_overtime_app'
     end
   end
 end

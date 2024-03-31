@@ -13,5 +13,6 @@ class AddPlanStartedAtToAttendances < ActiveRecord::Migration[7.0]
     add_column :attendances, :planner, :string # 起案者
     add_column :attendances, :work_status, :string # 当,非,週,日,年,夏,特
     add_column :attendances, :overwork_chk, :boolean, default: false
+    add_column :attendances, :send_approval, :string # 承認送信先の名前
   end
 end

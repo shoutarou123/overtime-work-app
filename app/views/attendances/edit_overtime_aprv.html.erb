@@ -1,6 +1,6 @@
 <% provide(:class_text, 'edit-overtime-aprv') %>
 
-<%= form_with(model: @user, url: attendances_update_overtime_aprv_user_path, local: true, method: :patch) do |f| %>
+<%= form_with(model: @user, url: attendances_update_overtime_aprv_user_path(date: params[:date]), local: true, method: :patch) do |f| %>
   <% @users.each do |user| %>
     <h1 class="title"><%= "#{user.name}の時間外勤務申請"%></h1>
 
@@ -21,6 +21,7 @@
                 <td>所属長確認㊞</td>
                 <td>決定</td>
                 <td>勤務を確認する</td>
+                <td>送信先</td>
               </tr>
             </thead>
 
@@ -39,6 +40,7 @@
                     <td><%= attendance.select :overwork_status, ['承認', '否認'], {}, { class: 'form-control' } %></td> <!--指示者確認㊞-->
                     <td><%= attendance.check_box :overwork_chk %></td> <!--決定-->
                     <td><%= link_to "確認", user_path(user, date: day.worked_on.beginning_of_month), target: "_blank", class: "btn btn-primary" %></td> <!--userにcurrent_userが入っている-->
+                    <td><%= attendance.collection_select(:send_approval, @office_staff, :name, :name, { include_blank: true }) %></td> <!--送信先-->
                   </tr>
                 <% end %>
               <% end %>

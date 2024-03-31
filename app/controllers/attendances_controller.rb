@@ -54,10 +54,11 @@ class AttendancesController < ApplicationController
     redirect_to user_url
   end
 
-  def edit_overtime_aprv
+  def edit_overtime_aprv # 所属長が時間外申請内容を確認する画面
     @user = User.find(params[:id])
     @attendances = Attendance.where(confirmed_request: @user.name, overwork_status: "申請中")
     @users = User.where(id: @attendances.select(:user_id))
+    @office_staff = User.where(office_staff: true)
   end
 
   def update_overtime_aprv
@@ -65,7 +66,7 @@ class AttendancesController < ApplicationController
       flag = 0
       overtime_aprv_params.each do |id, item|
         if item[:overwork_chk] == '1'
-          unless item[:overwork_status] == "否認"
+          if item[:overwork_status] == "承認"
             flag += 1
             attendance = Attendance.find(id)
             if item[:overwork_status] == "否認"
@@ -83,6 +84,10 @@ class AttendancesController < ApplicationController
       redirect_to user_url(date: params[:date])
   end
 
+  def update_overtime_app
+
+  end
+
 end
 
 private
@@ -96,5 +101,5 @@ private
   end
 
   def overtime_aprv_params
-    params.require(:user).permit(attendances: [:overwork_status, :overwork_chk])[:attendances]
+    params.require(:user).permit(attendances: [:overwork_status, :overwork_chk, :send_approval])[:attendances]
   end
