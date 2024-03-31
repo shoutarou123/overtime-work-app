@@ -85,7 +85,9 @@ class AttendancesController < ApplicationController
   end
 
   def update_overtime_app
-
+    @user = User.find(params[:id])
+    @attendances = Attendance.where(send_approval: @user.name, overwork_status: "承認")
+    @users = User.where(id: @attendances.select(:user_id))
   end
 
 end
