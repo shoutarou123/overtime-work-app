@@ -36,7 +36,7 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:id])
     overtime_req_params.each do |id, item|
       attendance = Attendance.find(id)
-      if item[:planner].blank? || item[:worked_on].blank? || item[:work_type].blank? || item[:communication_work_type].blank? || item[:plan_started_at].blank? || item[:plan_finished_at].blank? || item[:work_content].blank? && item[:confirmed_request].blank?
+      if item[:planner].blank? || item[:work_type].blank? || item[:communication_work_type].blank? || item[:plan_started_at].blank? || item[:plan_finished_at].blank? || item[:work_content].blank? && item[:confirmed_request].blank?
         flag = 1 if item[:approved] == '1'
       else
         flag = 1
@@ -88,6 +88,30 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:id])
     @attendances = Attendance.where(send_approval: @user.name, overwork_status: "承認")
     @users = User.where(id: @attendances.select(:user_id))
+    @report = User.where(report: true)
+  end
+
+  def update_overtime_rep
+    @user = User.find(params[:id])
+    flag = 0
+    overtime_rep_params.each do |id, item|
+      attendance = Attendance.find(id)
+      if item[:started_at].blank? || item[:finished_at].blank?
+        flag = 1 if item[:approved] == '1'
+      else
+        flag = 1
+      end
+      if flag == 1
+        attendance.overwork_chk = '0'
+        attendance.overwork_status = "報告中"
+        overtime_instructor = item["overtime_instructor"]
+        attendance.update(item.merge(overtime_instructor: overtime_instructor))
+        flash[:success] = "時間外勤務報告を送信しました。"
+      else
+        flash[:danger] = "未入力な項目があったため、申請をキャンセルしました。"
+      end
+    end
+    redirect_to user_url
   end
 
 end
@@ -99,9 +123,13 @@ private
   end
 
   def overtime_req_params
-    params.require(:user).permit(attendances: [:planner, :worked_on, :work_type, :communication_work_type, :plan_started_at, :plan_finished_at, :work_content, :confirmed_request])[:attendances]
+    params.require(:user).permit(attendances: [:planner, :work_type, :communication_work_type, :plan_started_at, :plan_finished_at, :work_content, :confirmed_request])[:attendances]
   end
 
   def overtime_aprv_params
     params.require(:user).permit(attendances: [:overwork_status, :overwork_chk, :send_approval])[:attendances]
+  end
+
+  def overtime_rep_params
+    params.require(:user).permit(attendances: [:started_at, :finished_at, :unit_h_125, :unit_m_125, :unit_h_135, :unit_m_135, :unit_h_150, :unit_m_150, :unit_h_160, :unit_m_160, :report_to])[:attendances]
   end

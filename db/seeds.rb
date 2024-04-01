@@ -14,7 +14,8 @@ User.create!(name: "所属長",
              base_pay: 500000,
              password: "password",
              password_confirmation: "password",
-             superior: true)
+             superior: true,
+             report: true)
 
 User.create!(name: "職員A",
              employee_number: 001,

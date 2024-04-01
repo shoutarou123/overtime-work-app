@@ -31,7 +31,7 @@
                   <%= f.fields_for "attendances[]", @attendance do |attendance| %>
                     <tr class="text-center">
                       <td><%= attendance.collection_select(:planner, @office_staff, :name, :name, { include_blank: true }) %></td> <!--起案-->
-                      <td><%= attendance.date_field :worked_on, { include_blank: true, discard_year: true } %></td> <!--日付-->
+                      <td><%= l(@attendance.worked_on, format: :short) %></td> </td> <!--日付-->
                       <td><%= attendance.select :work_type, ["当", "非", "週", "日"], {} %></td> <!--当非週-->
                       <td><%= attendance.select :communication_work_type, ["なし", "22～24", "0～2", "2～4", "4～6"], {} %></td> <!--夜間通信勤務時間-->
                       <td><%= attendance.time_field :plan_started_at, { include_blank: true } %></td> <!--開始予定時間-->

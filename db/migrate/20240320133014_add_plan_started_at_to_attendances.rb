@@ -3,7 +3,7 @@ class AddPlanStartedAtToAttendances < ActiveRecord::Migration[7.0]
     add_column :attendances, :plan_started_at, :datetime # 時間外勤務開始予定時間
     add_column :attendances, :plan_finished_at, :datetime # 時間外勤務終了予定時間
     add_column :attendances, :work_content, :string # 勤務内容
-    add_column :attendances, :confirmed_request, :string # 申請先の名前
+    add_column :attendances, :confirmed_request, :string # 申請先の名前格納場所
     add_column :attendances, :approved, :boolean, default: false
     add_column :attendances, :work_type, :string # 当非週
     add_column :attendances, :communication_work_type, :string # 通信時間
@@ -22,5 +22,6 @@ class AddPlanStartedAtToAttendances < ActiveRecord::Migration[7.0]
     add_column :attendances, :unit_m_150, :integer
     add_column :attendances, :unit_h_160, :integer
     add_column :attendances, :unit_m_160, :integer
+    add_column :attendances, :report_to, :string # 報告先格納場所
   end
 end

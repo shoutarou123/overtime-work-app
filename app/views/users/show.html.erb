@@ -47,7 +47,12 @@
       <span class="notification-badge">
         <%= "#{@app_count}件の通知があります" %>
       </span>
-    <% end %>
+  <% elsif @rep_count > 0 %>
+    <%= link_to "【時間外勤務報告のお知らせ】", '#', class: "sp-link" %> <!--引数はそのuserの月初-->
+      <span class="notification-badge">
+        <%= "#{@rep_count}件の通知があります" %>
+      </span>
+  <% end %>
 </div>
 
 <div>
@@ -116,11 +121,13 @@
           <td><%= day.work_content %></td> <!--勤務内容-->
           <td> <!--命令・確認㊞-->
             <% if day.overwork_status == "申請中" %>
-              <%= "#{day.confirmed_request}へ時間外勤務#{day.overwork_status}" %>
+              <%= "#{day.confirmed_request}へ時間外#{day.overwork_status}" %>
             <% elsif day.overwork_status == "承認" %>
-              <%= "時間外#{day.overwork_status}中" %>
+              <%= "時間外申請#{day.overwork_status}中" %>
             <% elsif day.overwork_status == "否認" %>
               <%= "時間外申請#{day.overwork_status}" %>
+            <% elsif day.overwork_status == "報告中" %>
+              <%= "#{day.confirmed_request}へ時間外#{day.overwork_status}" %>
             <% end %>
           </td>
         </tr>

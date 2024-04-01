@@ -1,6 +1,6 @@
 <% provide(:class_text, 'update-overtime-app') %>
 
-<%= form_with(model: @user, url: '#', local: true, method: :patch) do |f| %>
+<%= form_with(model: @user, url: attendances_update_overtime_rep_user_path(date: params[:date]), local: true, method: :patch) do |f| %>
   <% @users.each do |user| %>
     <h1 class="title"><%= "#{user.name}の時間外勤務報告"%></h1>
 
@@ -22,6 +22,7 @@
                 <td colspan="2">150</td>
                 <td colspan="2">160</td>
                 <td rowspan="2">勤務内容</td>
+                <td rowspan="2">報告先</td>
               </tr>
               <tr class="text-center">
                 <td>開始時間</td>
@@ -57,6 +58,7 @@
                     <td rowspan="2"><%= attendance.number_field :unit_h_160, include_blank: true, style: 'width: 3em;' %></td> <!--160 時-->
                     <td rowspan="2"><%= attendance.number_field :unit_m_160, include_blank: true, style: 'width: 3em;' %></td> <!--160 分-->
                     <td rowspan="2"><%= day.work_content %></td> <!--勤務内容-->
+                    <td rowspan="2"><%= attendance.collection_select(:report_to, @report, :name, :name, { include_blank: true }) %></td> <!--報告先-->
                   </tr>
                   <tr class="text-center">
                     <td><%= attendance.time_field :started_at, { include_blank: true } %></td> <!--開始時間-->
@@ -70,5 +72,5 @@
       </div>
     </div>
   <% end %>
-  <%= f.submit "当番長へ送信する", class: "btn btn-primary btn-md" %>
+  <%= f.submit "報告する", class: "btn btn-primary btn-md" %>
 <% end %>

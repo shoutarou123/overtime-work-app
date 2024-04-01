@@ -41,6 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.integer "unit_m_150"
     t.integer "unit_h_160"
     t.integer "unit_m_160"
+    t.string "report_to"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
@@ -58,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.string "job_title"
     t.boolean "superior", default: false
     t.boolean "office_staff", default: false
+    t.boolean "report", default: false
     t.index ["email"], name: "index_users_on_email"
   end
 
