@@ -25,11 +25,6 @@ class AttendancesController < ApplicationController
     @attendance = @user.attendances.find_by(worked_on: params[:date])
     @superior = User.where(superior: true)
     @office_staff = User.where(office_staff: true)
-
-    respond_to do |format|
-      format.html { render partial: 'attendances/edit_overtime_req', locals: { attendance: @attendance } }
-      format.turbo_stream
-    end
   end
 
   def update_overtime_req # 時間外申請送信

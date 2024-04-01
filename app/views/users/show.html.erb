@@ -97,7 +97,7 @@
       <% @attendances.each do |day| %>
         <tr class="text-center" >
           <td rowspan="2">
-            <%= link_to "時間外勤務申請", attendances_edit_overtime_req_user_path(date: day.worked_on), data: { turbo_frame: 'modal' }, class: "btn btn-primary" %>
+            <%= link_to "時間外勤務申請", attendances_edit_overtime_req_user_path(date: day.worked_on), class: "btn btn-primary" %>
           </td>
           <td rowspan="2"><%= l(day.worked_on, format: :short) %></td> <!--日付-->
               <% class_for_day = case $days_of_the_week[day.worked_on.wday]
