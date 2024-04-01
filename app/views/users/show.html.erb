@@ -58,27 +58,30 @@
 <div>
   <table class="table table-bordered table-condensed table-hover" id="table-attendaces">
     <thead>
-      <tr class="text-center">
+      <tr>
         <th rowspan="3">時間外勤務申請</th>
         <th rowspan="3">日付</th>
         <th rowspan="3">曜日</th>
         <th rowspan="3">勤務</th>
-        <th colspan="8">時間外勤務</th>
-        <th colspan="2" rowspan="2">休日勤務</th>
+        <th colspan="2">時間外勤務</th>
+        <th colspan="8">単価</th>
         <th rowspan="3">勤務内容</th>
         <th rowspan="3">命令・確認㊞</th>
       </tr>
 
-      <tr>
-        <th colspan="2">開始予定時間</th>
-        <th colspan="2">終了予定時間</th>
-        <th colspan="2">開始時間</th>
-        <th colspan="2">終了時間</th>
+      <tr class="text-center">
+        <th>開始予定時間</th>
+        <th>終了予定時間</th>
+        <th colspan="2">125</th>
+        <th colspan="2">135</th>
+        <th colspan="2">150</th>
+        <th colspan="2">160</th>
+        
       </tr>
 
-      <tr>
-        <th>時</th>
-        <th>分</th>
+      <tr class="text-center">
+        <th>開始時間</th>
+        <th>終了時間</th>
         <th>時</th>
         <th>分</th>
         <th>時</th>
@@ -93,10 +96,10 @@
     <tbody>
       <% @attendances.each do |day| %>
         <tr class="text-center" >
-          <td>
+          <td rowspan="2">
             <%= link_to "時間外勤務申請", attendances_edit_overtime_req_user_path(date: day.worked_on), data: { turbo_frame: 'modal' }, class: "btn btn-primary" %>
           </td>
-          <td><%= l(day.worked_on, format: :short) %></td> <!--日付-->
+          <td rowspan="2"><%= l(day.worked_on, format: :short) %></td> <!--日付-->
               <% class_for_day = case $days_of_the_week[day.worked_on.wday]
                 when '土'
                      'text-primary'
@@ -104,22 +107,22 @@
                      'text-danger'
                 end
               %>
-          <td class="<%= class_for_day %>"> <!--上記で曜日指定し、代入したものをここで記述している。更に色指定をCSSで行う。-->
+          <td  rowspan="2" class="<%= class_for_day %>"> <!--上記で曜日指定し、代入したものをここで記述している。更に色指定をCSSで行う。-->
             <%= $days_of_the_week[day.worked_on.wday] %>
           </td>
-          <td><%= day.work_status %></td> <!--勤務-->
-          <td><%= l(day.plan_started_at, format: :timeH) if day.plan_started_at.present? %></td> <!--開始予定時間 時-->
-          <td><%= l(day.plan_started_at, format: :timeM) if day.plan_started_at.present? %></td> <!--開始予定時間 分-->
-          <td><%= l(day.plan_finished_at, format: :timeH) if day.plan_finished_at.present? %></td> <!--終了予定時間 時-->
-          <td><%= l(day.plan_finished_at, format: :timeM) if day.plan_finished_at.present? %></td> <!--終了予定時間 分-->
-          <td><%= l(day.started_at, format: :timeH) if day.started_at.present? %></td> <!--開始時間 時-->
-          <td><%= l(day.started_at, format: :timeM) if day.started_at.present? %></td> <!--開始時間 分-->
-          <td><%= l(day.finished_at, format: :timeH) if day.finished_at.present? %></td> <!--終了時間 時-->
-          <td><%= l(day.finished_at, format: :timeM) if day.finished_at.present? %></td> <!--終了時間 分-->
-          <td></td> <!--休日勤務 時-->
-          <td></td> <!--休日勤務 分-->
-          <td><%= day.work_content %></td> <!--勤務内容-->
-          <td> <!--命令・確認㊞-->
+          <td rowspan="2"><%= day.work_status %></td> <!--勤務-->
+          <td><%= l(day.plan_started_at, format: :time) if day.plan_started_at.present? %></td> <!--開始予定時間-->
+          <td><%= l(day.plan_finished_at, format: :time) if day.plan_finished_at.present? %></td> <!--終了予定時間-->
+          <td rowspan="2"><%= day.unit_h_125 %></td> <!--125 時-->
+          <td rowspan="2"><%= day.unit_m_125 %></td> <!--125 分-->
+          <td rowspan="2"><%= day.unit_h_135 %></td> <!--135 時-->
+          <td rowspan="2"><%= day.unit_m_135 %></td> <!--135 分-->
+          <td rowspan="2"><%= day.unit_h_150 %></td> <!--150 時-->
+          <td rowspan="2"><%= day.unit_m_150 %></td> <!--150 分-->
+          <td rowspan="2"><%= day.unit_h_160 %></td> <!--160 時-->
+          <td rowspan="2"><%= day.unit_m_160 %></td> <!--160 分-->
+          <td rowspan="2"><%= day.work_content %></td> <!--勤務内容-->
+          <td rowspan="2"> <!--命令・確認㊞-->
             <% if day.overwork_status == "申請中" %>
               <%= "#{day.confirmed_request}へ時間外#{day.overwork_status}" %>
             <% elsif day.overwork_status == "承認" %>
@@ -128,8 +131,14 @@
               <%= "時間外申請#{day.overwork_status}" %>
             <% elsif day.overwork_status == "報告中" %>
               <%= "#{day.confirmed_request}へ時間外#{day.overwork_status}" %>
+            <% elsif day.overwork_status == "決裁済" %>
+              <%= "時間外報告#{day.overwork_status}" %>
             <% end %>
           </td>
+        </tr>
+        <tr class="text-center">
+          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td> <!--開始時間-->
+          <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td> <!--終了時間-->
         </tr>
       <% end %>
     </tbody>
