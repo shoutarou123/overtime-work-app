@@ -131,8 +131,8 @@
               <%= "時間外申請#{day.overwork_status}" %>
             <% elsif day.overwork_status == "報告中" %>
               <%= "#{day.confirmed_request}へ時間外#{day.overwork_status}" %>
-            <% elsif day.overwork_status == "決裁済" %>
-              <%= "時間外報告#{day.overwork_status}" %>
+            <% elsif day.overwork_status == "決裁" %>
+              <%= "時間外報告#{day.overwork_status}済" %>
             <% end %>
           </td>
         </tr>

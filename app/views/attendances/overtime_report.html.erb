@@ -1,6 +1,6 @@
 <% provide(:class_text, 'overtime-report') %>
 
-<%= form_with(model: @user, url: '#', local: true, method: :patch) do |f| %>
+<%= form_with(model: @user, url: attendances_update_overtime_report_user_path, local: true, method: :patch) do |f| %>
   <% @users.each do |user| %>
     <h1 class="title"><%= "#{user.name}の時間外勤務報告"%></h1>
 
@@ -23,7 +23,7 @@
                 <td colspan="2">160</td>
                 <td rowspan="2">勤務内容</td>
                 <td rowspan="2">所属長決裁㊞</td>
-                <td rowspan="2">決裁チェック</td>
+                <td rowspan="2">確定</td>
                 <td rowspan="2">勤務を確認する</td>
               </tr>
               <tr class="text-center">
@@ -61,7 +61,7 @@
                     <td rowspan="2"><%= day.unit_m_160 %></td> <!--160 分-->
                     <td rowspan="2"><%= day.work_content %></td> <!--勤務内容-->
                     <td rowspan="2"><%= attendance.select :overwork_status, ['決裁', '否認'], {}, { class: 'form-control' } %></td> <!--所属長決裁㊞-->
-                    <td rowspan="2"><%= attendance.check_box :overwork_rep_chk %></td> <!--決裁チェック-->
+                    <td rowspan="2"><%= attendance.check_box :overwork_rep_chk %></td> <!--確定-->
                     <td rowspan="2"><%= link_to "確認", user_path(user, date: day.worked_on.beginning_of_month), target: "_blank", class: "btn btn-primary" %></td> <!--勤務を確認する-->
                   </tr>
                   <tr class="text-center">
@@ -76,5 +76,5 @@
       </div>
     </div>
   <% end %>
-  <%= f.submit "決裁する", class: "btn btn-primary btn-md" %>
+  <%= f.submit "送信する", class: "btn btn-primary btn-md" %>
 <% end %>

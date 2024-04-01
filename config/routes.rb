@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       get 'attendances/update_overtime_app' # 所属長から承認された内容を表示
       patch 'attendances/update_overtime_rep' # 時間外勤務報告先
       get 'attendances/overtime_report' # 時間外勤務報告画面
+      patch 'attendances/update_overtime_report' # 時間外勤務報告先
     end
   end
 end
