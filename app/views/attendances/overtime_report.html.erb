@@ -1,8 +1,8 @@
-<% provide(:class_text, 'update-overtime-app') %>
+<% provide(:class_text, 'overtime-report') %>
 
-<%= form_with(model: @user, url: attendances_update_overtime_rep_user_path(date: params[:date]), local: true, method: :patch) do |f| %>
+<%= form_with(model: @user, url: '#', local: true, method: :patch) do |f| %>
   <% @users.each do |user| %>
-    <h1 class="title"><%= "#{user.name}の承認された時間外勤務"%></h1>
+    <h1 class="title"><%= "#{user.name}の時間外勤務報告"%></h1>
 
     <div class="body">
       <div class="row">
@@ -22,7 +22,9 @@
                 <td colspan="2">150</td>
                 <td colspan="2">160</td>
                 <td rowspan="2">勤務内容</td>
-                <td rowspan="2">報告先</td>
+                <td rowspan="2">所属長決裁㊞</td>
+                <td rowspan="2">決裁チェック</td>
+                <td rowspan="2">勤務を確認する</td>
               </tr>
               <tr class="text-center">
                 <td>開始時間</td>
@@ -49,20 +51,22 @@
                     <td rowspan="2"><%= day.communication_work_type %></td> <!--夜間通信勤務時間-->
                     <td><%= l(day.plan_started_at, format: :time) %></td> <!--開始予定時間-->
                     <td><%= l(day.plan_finished_at, format: :time) %></td> <!--終了予定時間-->
-                    <td rowspan="2"><%= attendance.number_field :unit_h_125, include_blank: true, style: 'width: 3em;' %></td> <!--125 時-->
-                    <td rowspan="2"><%= attendance.number_field :unit_m_125, include_blank: true, style: 'width: 3em;' %></td> <!--125 分-->
-                    <td rowspan="2"><%= attendance.number_field :unit_h_135, include_blank: true, style: 'width: 3em;' %></td> <!--135 時-->
-                    <td rowspan="2"><%= attendance.number_field :unit_m_135, include_blank: true, style: 'width: 3em;' %></td> <!--135 分-->
-                    <td rowspan="2"><%= attendance.number_field :unit_h_150, include_blank: true, style: 'width: 3em;' %></td> <!--150 時-->
-                    <td rowspan="2"><%= attendance.number_field :unit_m_150, include_blank: true, style: 'width: 3em;' %></td> <!--150 分-->
-                    <td rowspan="2"><%= attendance.number_field :unit_h_160, include_blank: true, style: 'width: 3em;' %></td> <!--160 時-->
-                    <td rowspan="2"><%= attendance.number_field :unit_m_160, include_blank: true, style: 'width: 3em;' %></td> <!--160 分-->
+                    <td rowspan="2"><%= day.unit_h_125 %></td> <!--125 時-->
+                    <td rowspan="2"><%= day.unit_m_125 %></td> <!--125 分-->
+                    <td rowspan="2"><%= day.unit_h_135 %></td> <!--135 時-->
+                    <td rowspan="2"><%= day.unit_m_135 %></td> <!--135 分-->
+                    <td rowspan="2"><%= day.unit_h_150 %></td> <!--150 時-->
+                    <td rowspan="2"><%= day.unit_m_150 %></td> <!--150 分-->
+                    <td rowspan="2"><%= day.unit_h_160 %></td> <!--160 時-->
+                    <td rowspan="2"><%= day.unit_m_160 %></td> <!--160 分-->
                     <td rowspan="2"><%= day.work_content %></td> <!--勤務内容-->
-                    <td rowspan="2"><%= attendance.collection_select(:report_to, @report, :name, :name, { include_blank: true }) %></td> <!--報告先-->
+                    <td rowspan="2"><%= attendance.select :overwork_status, ['決裁', '否認'], {}, { class: 'form-control' } %></td> <!--所属長決裁㊞-->
+                    <td rowspan="2"><%= attendance.check_box :overwork_rep_chk %></td> <!--決裁チェック-->
+                    <td rowspan="2"><%= link_to "確認", user_path(user, date: day.worked_on.beginning_of_month), target: "_blank", class: "btn btn-primary" %></td> <!--勤務を確認する-->
                   </tr>
                   <tr class="text-center">
-                    <td><%= attendance.time_field :started_at, { include_blank: true } %></td> <!--開始時間-->
-                    <td><%= attendance.time_field :finished_at, { include_blank: true } %></td> <!--終了時間-->
+                    <td><%= l(day.started_at, format: :time) %></td> <!--開始時間-->
+                    <td><%= l(day.finished_at, format: :time) %></td> <!--終了時間-->
                   </tr>
                 <% end %>
               <% end %>
@@ -72,5 +76,5 @@
       </div>
     </div>
   <% end %>
-  <%= f.submit "報告する", class: "btn btn-primary btn-md" %>
+  <%= f.submit "決裁する", class: "btn btn-primary btn-md" %>
 <% end %>

@@ -114,6 +114,12 @@ class AttendancesController < ApplicationController
     redirect_to user_url
   end
 
+  def overtime_report
+    @user = User.find(params[:id])
+    @attendances = Attendance.where(report_to: @user.name, overwork_status: "報告中")
+    @users = User.where(id: @attendances.select(:user_id))
+  end
+
 end
 
 private

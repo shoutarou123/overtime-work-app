@@ -23,5 +23,6 @@ class AddPlanStartedAtToAttendances < ActiveRecord::Migration[7.0]
     add_column :attendances, :unit_h_160, :integer
     add_column :attendances, :unit_m_160, :integer
     add_column :attendances, :report_to, :string # 報告先格納場所
+    add_column :attendances, :overwork_rep_chk, :boolean, default: false
   end
 end

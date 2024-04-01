@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_03_20_133014) do
     t.integer "unit_h_160"
     t.integer "unit_m_160"
     t.string "report_to"
+    t.boolean "overwork_rep_chk", default: false
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
