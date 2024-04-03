@@ -19,4 +19,12 @@ module UsersHelper
   def unit_price_25(base_pay) # 夜間単価
     (base_pay*12/1875.5*25/100).round
   end
+
+  def sum_unit_m_125
+    @sum_h_125 = Attendance.all.sum(:unit_h_125)
+    @sum_m_125 = Attendance.all.sum(:unit_m_125)
+    @sum_m_125 - 60 if @sum_m_125 > 60
+      @sum_h_125 + 1
+    end
+  end
 end
