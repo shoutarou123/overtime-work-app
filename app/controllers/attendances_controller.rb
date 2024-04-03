@@ -60,12 +60,12 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:id])
       flag = 0
       overtime_aprv_params.each do |id, item|
+
         if item[:overwork_chk] == '1'
-          if item[:overwork_status] == "承認"
+          unless item[:overwork_status] == "申請中"
             flag += 1
             attendance = Attendance.find(id)
             if item[:overwork_status] == "否認"
-              attendance.work_content = nil
             end
             attendance.update(item)
           end
