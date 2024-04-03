@@ -119,27 +119,38 @@ class AttendancesController < ApplicationController
     flag = 0
       update_overtime_report_params.each do |id, item|
         if item[:overwork_rep_chk] == '1'
-          if item[:overwork_status] == "決裁"
+          unless item[:overwork_status] == "報告中"
             flag += 1
             attendance = Attendance.find(id)
-          elsif
-            item[:overwork_status] == "否認"
-            attendance.started_at = nil
-            attendance.finished_at = nil
-            attendance.unit_h_125 = nil
-            attendance.unit_m_125 = nil
-            attendance.unit_h_135 = nil
-            attendance.unit_m_135 = nil
-            attendance.unit_h_150 = nil
-            attendance.unit_m_150 = nil
-            attendance.unit_h_160 = nil
-            attendance.unit_m_160 = nil
+            if item[:overwork_status] == "却下"
+              if attendance.started_at.present? &&  attendance.finished_at.present?
+                attendance.started_at = nil
+                attendance.finished_at = nil
+                if attendance.unit_h_125.present?
+                  attendance.unit_h_125 = nil
+                elsif attendance.unit_m_125.present?
+                  attendance.unit_m_125 = nil
+                elsif attendance.unit_h_135.present?
+                  attendance.unit_h_135 = nil
+                elsif attendance.unit_m_135.present?
+                  attendance.unit_m_135 = nil
+                elsif attendance.unit_h_150.present?
+                  attendance.unit_h_150 = nil
+                elsif attendance.unit_m_150.present?
+                  attendance.unit_m_150 = nil
+                elsif attendance.unit_h_160.present?
+                  attendance.unit_h_160 = nil
+                elsif attendance.unit_m_160
+                  attendance.unit_m_160 = nil
+                end
+              end
+            end
+            attendance.update(item)
           end
-          attendance.update(item)
         end
       end
     if flag > 0
-      flash[:success] = "時間外報告を確認しました。"
+      flash[:success] = "時間外報告を送信しました。"
     else
       flash[:danger] = "時間外報告の更新に失敗しました。"
     end
