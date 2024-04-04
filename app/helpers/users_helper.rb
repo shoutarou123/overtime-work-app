@@ -20,11 +20,59 @@ module UsersHelper
     (base_pay*12/1875.5*25/100).round
   end
 
-  def sum_unit_m_125
-    @sum_h_125 = Attendance.all.sum(:unit_h_125)
-    @sum_m_125 = Attendance.all.sum(:unit_m_125)
-    @sum_m_125 - 60 if @sum_m_125 > 60
-      @sum_h_125 + 1
-    end
+  def sum_h_125
+    Attendance.all.sum(:unit_h_125)
+  end
+
+  def sum_m_125
+    Attendance.all.sum(:unit_m_125)
+  end
+
+  def sum_125
+    total_hours = sum_h_125 + sum_m_125 / 60
+    total_hours += 1 if sum_m_125 % 60 >= 30
+    total_hours
+  end
+
+  def sum_h_135
+    Attendance.all.sum(:unit_h_135)
+  end
+
+  def sum_m_135
+    Attendance.all.sum(:unit_m_135)
+  end
+
+  def sum_135
+    total_hours = sum_h_135 + sum_m_135 / 60
+    total_hours += 1 if sum_m_135 % 60 >= 30
+    total_hours
+  end
+
+  def sum_h_150
+    Attendance.all.sum(:unit_h_150)
+  end
+
+  def sum_m_150
+    Attendance.all.sum(:unit_m_150)
+  end
+
+  def sum_150
+    total_hours = sum_h_150 + sum_m_150 / 60
+    total_hours += 1 if sum_m_150 % 60 >= 30
+    total_hours
+  end
+
+  def sum_h_160
+    Attendance.all.sum(:unit_h_160)
+  end
+
+  def sum_m_160
+    Attendance.all.sum(:unit_m_160)
+  end
+
+  def sum_160
+    total_hours = sum_h_160 + sum_m_160 / 60
+    total_hours += 1 if sum_m_160 % 60 >= 30
+    total_hours
   end
 end
