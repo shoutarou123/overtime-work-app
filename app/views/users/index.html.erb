@@ -16,8 +16,6 @@
         <th>単価135</th>
         <th>単価150</th>
         <th>単価160</th>
-        <th>休日単価</th>
-        <th>夜間単価</th>
       </tr>
     </thead>
 
@@ -40,8 +38,6 @@
         <td><%= unit_price_135(user.base_pay) %></td> <!--単価135-->
         <td><%= unit_price_150(user.base_pay) %></td> <!--単価150-->
         <td><%= unit_price_160(user.base_pay) %></td> <!--単価160-->
-        <td><%= unit_price_135(user.base_pay) %></td> <!--休日単価-->
-        <td><%= unit_price_25(user.base_pay) %></td> <!--夜間単価-->
         <td>
           <% if current_user.admin? && !current_user?(user) %>
             <%= link_to '基本情報編集', edit_basic_info_user_path(user), data: { turbo_frame: 'modal' }, class: "btn btn-success" %>
