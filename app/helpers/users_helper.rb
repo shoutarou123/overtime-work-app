@@ -76,4 +76,20 @@ module UsersHelper
     total_hours += 1 if sum_m_160 % 60 >= 30
     total_hours
   end
+
+  def totalling_125
+    unit_price_125(@user.base_pay) * sum_125
+  end
+
+  def totalling_135
+    unit_price_135(@user.base_pay) * sum_135
+  end
+
+  def totalling_150
+    unit_price_150(@user.base_pay) * sum_150
+  end
+
+  def totalling_160
+    unit_price_160(@user.base_pay) * sum_160
+  end
 end
