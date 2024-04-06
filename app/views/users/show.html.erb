@@ -142,8 +142,8 @@
           </td>
         </tr>
         <tr class="text-center">
-          <td><%= l(day.started_at, format: :time) if day.started_at.present? %></td> <!--開始時間-->
-          <td><%= l(day.finished_at, format: :time) if day.finished_at.present? %></td> <!--終了時間-->
+          <td><b><%= l(day.started_at, format: :time) if day.started_at.present? %></b></td> <!--開始時間-->
+          <td><b><%= l(day.finished_at, format: :time) if day.finished_at.present? %></b></td> <!--終了時間-->
         </tr>
       <% end %>
     </tbody>
