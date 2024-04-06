@@ -9,6 +9,7 @@
         <th ><%= User.human_attribute_name :department %></th> <!--所属-->
         <th ><%= User.human_attribute_name :job_title %></th> <!--職-->
         <th><%= User.human_attribute_name :name %></th> <!--氏名-->
+        <th><%= User.human_attribute_name :email %></th> <!--氏名-->
         <% if current_user.admin? %>
           <th><%= User.human_attribute_name :base_pay %></th> <!--基本給-->
         <% end %>
@@ -31,6 +32,7 @@
             <%= user.name %>
           <% end %>
         </td>
+        <td><%= user.email %></td>
         <% if current_user.admin? %>
           <td><%= user.base_pay %></td> <!--基本給-->
         <% end %>
