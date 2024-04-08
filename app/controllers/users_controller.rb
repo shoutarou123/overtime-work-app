@@ -49,11 +49,6 @@ class UsersController < ApplicationController
   end
 
   def edit_basic_info
-  
-    respond_to do |format|
-      format.html { render partial: 'users/edit_basic_info', locals: { user: @user } }
-      format.turbo_stream
-    end
   end
 
   def update_basic_info
@@ -62,11 +57,7 @@ class UsersController < ApplicationController
     else
       flash[:danger] = "#{@user.name}の基本情報の更新に失敗しました。<br>" + @user.errors.full_messages.join("<br>")
     end
-
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.turbo_stream
-    end
+    redirect_to users_url
   end
 
   private
