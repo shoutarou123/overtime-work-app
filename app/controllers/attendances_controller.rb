@@ -42,6 +42,7 @@ class AttendancesController < ApplicationController
         overtime_instructor = item["overtime_instructor"]
         attendance.update(item.merge(overtime_instructor: overtime_instructor))
         flash[:success] = "時間外勤務申請を送信しました。"
+        NoticeMailer.overtime_req_notice.deliver_now
       else
         flash[:danger] = "未入力な項目があったため、申請をキャンセルしました。"
       end
@@ -102,6 +103,7 @@ class AttendancesController < ApplicationController
         overtime_instructor = item["overtime_instructor"]
         attendance.update(item.merge(overtime_instructor: overtime_instructor))
         flash[:success] = "時間外勤務報告を送信しました。"
+        NoticeMailer.overtime_report_notice.deliver_now
       else
         flash[:danger] = "未入力な項目があったため、報告をキャンセルしました。"
       end
