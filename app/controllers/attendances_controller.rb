@@ -62,7 +62,7 @@ class AttendancesController < ApplicationController
       flag = 0
       overtime_aprv_params.each do |id, item|
 
-        if item[:overwork_chk] == '1'
+        if item[:overwork_chk] == '1' && item[:send_approval].present?
           unless item[:overwork_status] == "申請中"
             flag += 1
             attendance = Attendance.find(id)
