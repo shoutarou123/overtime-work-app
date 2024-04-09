@@ -8,12 +8,12 @@ class NoticeMailer < ApplicationMailer
   def overtime_req_notice
     @greeting = "お疲れさまです。"
 
-    mail(to: "850123.as@gmail.com",  subject: '通知')
+    mail(to: "@gmail.com",  subject: '通知')
   end
 
   def overtime_report_notice
     @greeting = "お疲れさまです。"
 
-    mail(to: "850123.as@gmail.com",  subject: '通知')
+    mail(to: "@gmail.com",  subject: '通知')
   end
 end
