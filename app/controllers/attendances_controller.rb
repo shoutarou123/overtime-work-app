@@ -92,7 +92,7 @@ class AttendancesController < ApplicationController
     flag = 0
     overtime_rep_params.each do |id, item|
       attendance = Attendance.find(id)
-      if item[:started_at].blank? || item[:finished_at].blank?
+      if item[:started_at].blank? || item[:finished_at].blank? || item[:report_to].blank?
         flag = 1 if item[:approved] == '1'
       else
         flag = 1
