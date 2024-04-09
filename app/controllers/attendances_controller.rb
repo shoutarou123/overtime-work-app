@@ -31,7 +31,7 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:id])
     overtime_req_params.each do |id, item|
       attendance = Attendance.find(id)
-      if item[:planner].blank? || item[:work_type].blank? || item[:communication_work_type].blank? || item[:plan_started_at].blank? || item[:plan_finished_at].blank? || item[:work_content].blank? && item[:confirmed_request].blank?
+      if item[:planner].blank? || item[:work_type].blank? || item[:communication_work_type].blank? || item[:plan_started_at].blank? || item[:plan_finished_at].blank? || item[:work_content].blank? || item[:confirmed_request].blank?
         flag = 1 if item[:approved] == '1'
       else
         flag = 1
