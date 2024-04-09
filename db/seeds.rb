@@ -4,8 +4,7 @@ User.create!(name: "管理者",
              password: "password",
              base_pay: 305900,
              password_confirmation: "password",
-             admin: true,
-             office_staff: true)
+             admin: true)
 
 User.create!(name: "所属長",
              employee_number: 000,
@@ -25,10 +24,16 @@ User.create!(name: "職員A",
              password: "password",
              password_confirmation: "password")
 
-User.create!(name: "当番長",
+User.create!(name: "職員B",
              employee_number: 002,
              department: "A署",
-             job_title: "士",
+             job_title: "消防士長",
              base_pay: 401200,
              password: "password",
              password_confirmation: "password")
+
+User.create!(name: "庶務係",
+             password: "password",
+             base_pay: 305900,
+             password_confirmation: "password",
+             office_staff: true)
