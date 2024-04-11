@@ -44,7 +44,6 @@
            <% if current_user.admin? && !current_user?(user) %>
             <%= link_to '基本情報編集', edit_basic_info_user_path(user), class: "btn btn-success" %>
             <%= link_to "削除", user, data: {turbo_method: :delete, turbo_confirm: "削除してよろしいですか？"}, class: "btn btn-danger" %>
-           <% elsif current_user?(user) %>
              <%= link_to '職員詳細', user, class: "btn btn-primary" %>
            <% end %>
         </td>

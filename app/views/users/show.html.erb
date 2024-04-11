@@ -47,12 +47,14 @@
       <span class="notification-badge">
         <%= "#{@aprv_count}件の通知があります" %>
       </span>
-  <% elsif @app_count > 0 %>
+  <% end %>
+  <% if @app_count > 0 %>
     <%= link_to "【時間外勤務承認のお知らせ】", attendances_update_overtime_app_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
       <span class="notification-badge">
         <%= "#{@app_count}件の通知があります" %>
       </span>
-  <% elsif @rep_count > 0 %>
+  <% end %>
+  <% if @rep_count > 0 %>
     <%= link_to "【時間外勤務報告のお知らせ】", attendances_overtime_report_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
       <span class="notification-badge">
         <%= "#{@rep_count}件の通知があります" %>

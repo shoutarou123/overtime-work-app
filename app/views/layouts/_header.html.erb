@@ -10,12 +10,17 @@
               <%= current_user.name %> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+            <% if current_user.admin? || current_user.office_staff? %>
               <li><%= link_to "職員一覧", users_path %></li>
               <li><%= link_to "職員情報の変更", edit_user_path(current_user) %></li>
+              <li><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
+            <% else %>
+              <li><%= link_to "詳細画面", user_path(current_user) %></li>
               <li class="divider"></li>
               <li>
                 <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
               </li>
+            <% end %>
             </ul>
           </li>
         <% else %> <!--ﾛｸﾞｲﾝしていなければ-->
