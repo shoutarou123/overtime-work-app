@@ -1,6 +1,6 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to "手当集計システム", root_path, id: "logo" %>
+    <%= link_to "時間外勤務システム", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "ホーム", root_path %></li>
@@ -12,7 +12,6 @@
             <ul class="dropdown-menu">
             <% if current_user.admin? || current_user.office_staff? %>
               <li><%= link_to "職員一覧", users_path %></li>
-              <li><%= link_to "職員情報の変更", edit_user_path(current_user) %></li>
               <li><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %></li>
             <% else %>
               <li><%= link_to "詳細画面", user_path(current_user) %></li>

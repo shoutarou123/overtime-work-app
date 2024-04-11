@@ -168,6 +168,7 @@ class AttendancesController < ApplicationController
         attendance.update(item)
       end
       if flag > 0
+        NoticeMailer.update_attendance_req.deliver_now
         flash[:success] = "勤務変更申請を送信しました。"
       else
         flash[:danger] = "勤務変更申請に送信に失敗しました。"
