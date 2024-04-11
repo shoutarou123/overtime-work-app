@@ -21,6 +21,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_user?(user)
+    user == current_user # =だと別のユーザーの情報見れてしまう
+  end
+
   # アクセスしたユーザーが現在ログインしているユーザーか確認します。
   def correct_user
     redirect_to(root_url) unless current_user?(@user)
@@ -50,5 +54,13 @@ class ApplicationController < ActionController::Base
   rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。
     flash[:danger] = "ページ情報の取得に失敗しました、再アクセスしてください。"
     redirect_to root_url
+  end
+
+  def admin_or_correct_user # 管理権限者、または現在ﾛｸﾞｲﾝしているﾕｰｻﾞｰを許可します。
+    @user = User.find(params[:user_id]) if @user.blank? # @userが空だったらuser_idを探して代入
+    unless current_user?(@user) || current_user.admin? || current_user.office_staff # 現在ﾕｰｻﾞｰじゃない又は管理権限が無い場合
+      flash[:danger] = "権限がありません。"
+      redirect_to(root_url)
+    end
   end
 end
