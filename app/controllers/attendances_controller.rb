@@ -175,6 +175,15 @@ class AttendancesController < ApplicationController
       redirect_to user_url(date: params[:date])
     end
   end
+
+  def edit_chg_req
+    @user = User.find(params[:id])
+    @attendances = Attendance.where(aprv_confirmed: @user.name, aprv_status: "申請中")
+    @users = User.where(id: @attendances.select(:user_id))
+  end
+
+  def update_attendance_aprv
+  end
 end
 
 private
