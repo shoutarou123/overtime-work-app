@@ -183,6 +183,26 @@ class AttendancesController < ApplicationController
   end
 
   def update_attendance_aprv
+    flag = 0
+    attendance_aprv_params.each do |id, item|
+      if item[:aprv_chk] == "1"
+        unless[:aprv_status] == "申請中"
+          flag += 1
+          attendance = Attendance.find(id)
+          if item[:aprv_status] == "否認"
+            attendance.aprv_status = nil
+            attendance.aprv_confirmed = nil
+          end
+          attendance.update(item)
+        end
+      end
+    end
+    if flag > 0
+      flash[:success] = "勤務申請承認等について送信しました。"
+    else
+      flash[:danger] = "勤務申請承認等について送信に失敗しました。"
+    end
+    redirect_to user_url
   end
 end
 
@@ -210,4 +230,8 @@ private
 
   def attendance_req_params
     params.require(:user).permit(attendances: :aprv_confirmed)[:attendances]
+  end
+
+  def attendance_aprv_params
+    params.require(:user).permit(attendances: [:aprv_chk, :aprv_status])[:attendances]
   end
