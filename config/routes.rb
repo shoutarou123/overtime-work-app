@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       patch 'attendances/update_overtime_rep' # 時間外勤務報告先
       get 'attendances/overtime_report' # 時間外勤務報告画面
       patch 'attendances/update_overtime_report' # 時間外勤務報告先
+      patch 'attendances/update_attendance_req'  # 勤務変更申請
+      get 'attendances/edit_chg_req' # 勤務変更申請画面表示
     end
   end
 end

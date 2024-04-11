@@ -39,27 +39,33 @@
 <div class="btn-users-show">
   <%= link_to "⇦ 前月へ", user_path(date: @first_day.prev_month), class: "btn btn-default" %>
   <%= link_to "次月へ ⇨", user_path(date: @first_day.next_month), class: "btn btn-default" %>
-  <% if current_user.office_staff? %>
-  <%= link_to "勤務編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-success" %>
-  <% end %>
-  <% if @aprv_count > 0 %>
-    <%= link_to "【時間外勤務申請のお知らせ】", attendances_edit_overtime_aprv_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
-      <span class="notification-badge">
-        <%= "#{@aprv_count}件の通知があります" %>
-      </span>
-  <% end %>
-  <% if @app_count > 0 %>
-    <%= link_to "【時間外勤務承認のお知らせ】", attendances_update_overtime_app_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
-      <span class="notification-badge">
-        <%= "#{@app_count}件の通知があります" %>
-      </span>
-  <% end %>
-  <% if @rep_count > 0 %>
-    <%= link_to "【時間外勤務報告のお知らせ】", attendances_overtime_report_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
-      <span class="notification-badge">
-        <%= "#{@rep_count}件の通知があります" %>
-      </span>
-  <% end %>
+    <% if current_user.office_staff? %>
+      <%= link_to "勤務編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-success" %>
+    <% end %>
+    <% if @aprv_count > 0 %>
+      <%= link_to "【時間外勤務申請のお知らせ】", attendances_edit_overtime_aprv_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
+        <span class="notification-badge">
+          <%= "#{@aprv_count}件の通知があります" %>
+        </span>
+    <% end %>
+    <% if @app_count > 0 %>
+      <%= link_to "【時間外勤務承認のお知らせ】", attendances_update_overtime_app_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
+        <span class="notification-badge">
+          <%= "#{@app_count}件の通知があります" %>
+        </span>
+    <% end %>
+    <% if @rep_count > 0 %>
+      <%= link_to "【時間外勤務報告のお知らせ】", attendances_overtime_report_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
+        <span class="notification-badge">
+          <%= "#{@rep_count}件の通知があります" %>
+        </span>
+    <% end %>
+    <% if @attendance_count > 0 %>
+      <%= link_to "【勤務変更申請のお知らせ】", attendances_edit_chg_req_user_path(date: @first_day), class: "sp-link"%>
+        <span class="notification-badge">
+          <%= "#{@attendance_count}件の通知があります" %>
+        </span>
+    <% end %>
 </div>
 
 <div>
@@ -67,15 +73,15 @@
     <thead>
       <tr>
         <% if current_user.office_staff? %>
-        <th rowspan="3">時間外勤務申請</th>
+          <th rowspan="3">時間外勤務申請</th>
         <%end %>
-        <th rowspan="3">日付</th>
-        <th rowspan="3">曜日</th>
-        <th rowspan="3">勤務</th>
-        <th colspan="2">時間外勤務</th>
-        <th colspan="8">単価</th>
-        <th rowspan="3">勤務内容</th>
-        <th rowspan="3">命令・確認㊞</th>
+          <th rowspan="3">日付</th>
+          <th rowspan="3">曜日</th>
+          <th rowspan="3">勤務</th>
+          <th colspan="2">時間外勤務</th>
+          <th colspan="8">単価</th>
+          <th rowspan="3">勤務内容</th>
+          <th rowspan="3">命令・確認㊞</th>
       </tr>
 
       <tr class="text-center">
@@ -105,18 +111,18 @@
       <% @attendances.each do |day| %>
         <tr class="text-center" >
           <% if current_user.office_staff? %>
-          <td rowspan="2">
-            <%= link_to "時間外勤務申請", attendances_edit_overtime_req_user_path(date: day.worked_on), class: "btn btn-primary" %>
-          </td>
+            <td rowspan="2">
+              <%= link_to "時間外勤務申請", attendances_edit_overtime_req_user_path(date: day.worked_on), class: "btn btn-primary" %>
+            </td>
           <% end %>
           <td rowspan="2"><%= l(day.worked_on, format: :short) %></td> <!--日付-->
-              <% class_for_day = case $days_of_the_week[day.worked_on.wday]
-                when '土'
-                     'text-primary'
-                when '日'
-                     'text-danger'
-                end
-              %>
+            <% class_for_day = case $days_of_the_week[day.worked_on.wday]
+              when '土'
+                   'text-primary'
+              when '日'
+                   'text-danger'
+              end
+            %>
           <td  rowspan="2" class="<%= class_for_day %>"> <!--上記で曜日指定し、代入したものをここで記述している。更に色指定をCSSで行う。-->
             <%= $days_of_the_week[day.worked_on.wday] %>
           </td>
@@ -154,8 +160,9 @@
         </tr>
       <% end %>
     </tbody>
+
     <tfoot>
-        <tr>
+      <tr>
         <% if current_user.office_staff? %>
           <td></td> <!--空欄-->
         <% end %>
@@ -173,27 +180,43 @@
             <td><%= sum_h_160 %></td> <!--160 時-->
             <td><%= sum_m_160 %></td> <!--160 分-->
           <td></td>
-          <td></td>
-        </tr>
+          <td rowspan="2">
+            <%= form_with(model: @user, url: attendances_update_attendance_req_user_path, local: true, method: :patch) do |f| %>
+              <%= f.fields_for "attendances[]", @attendance do |attendance| %>
+                勤務変更
+                <% if @attendance.aprv_status.blank? %>
+                  未
+                <% elsif @attendance.aprv_status == "申請中" %>
+                  <%= "#{@attendance.aprv_confirmed}へ#{@attendance.aprv_status}" %>
+                <% elsif @attendance.aprv_status == "承認" %>
+                  <%= "#{@attendance.aprv_confirmed}から#{@attendance.aprv_status}済" %>
+                <% elsif @attendance.aprv_status == "否認" %>
+                  <%= "#{@attendance.aprv_confirmed}から#{@attendance.aprv_status}" %>
+                <% end %>
+                <%= attendance.collection_select :aprv_confirmed, @superior, :name, :name, { include_blank: true }, { class: 'form-control' } %>
+              <% end %>
+                  <%= f.submit "申請", class: "btn btn-primary btn-block montly-req-btn" %>
+              <% end %>
+          </td>
+      </tr>
       <tr>
         <% if current_user.office_staff? %>
-        <td></td> <!--空欄-->
+          <td></td> <!--空欄-->
         <% end %>
-        <td></td> <!--空欄-->
-        <td></td> <!--空欄-->
-        <td></td> <!--空欄-->
-        <td></td> <!--空欄-->
-        <td class="text-right">集計</td>
-        <td><%= sum_125 %></td> <!--125 時-->
-        <td></td> <!--125 分-->
-        <td><%= sum_135 %></td> <!--135 時-->
-        <td></td> <!--135 分-->
-        <td><%= sum_150 %></td> <!--150 時-->
-        <td></td> <!--150 分-->
-        <td><%= sum_160 %></td> <!--160 時-->
-        <td></td> <!--160 分-->
-        <td></td>
-        <td></td>
+          <td></td> <!--空欄-->
+          <td></td> <!--空欄-->
+          <td></td> <!--空欄-->
+          <td></td> <!--空欄-->
+          <td class="text-right">集計</td>
+          <td><%= sum_125 %></td> <!--125 時-->
+          <td></td> <!--125 分-->
+          <td><%= sum_135 %></td> <!--135 時-->
+          <td></td> <!--135 分-->
+          <td><%= sum_150 %></td> <!--150 時-->
+          <td></td> <!--150 分-->
+          <td><%= sum_160 %></td> <!--160 時-->
+          <td></td> <!--160 分-->
+          <td></td>
       </tr>
     </tfoot>
   </table>

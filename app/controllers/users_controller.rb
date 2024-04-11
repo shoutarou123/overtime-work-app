@@ -13,6 +13,9 @@ class UsersController < ApplicationController
     @aprv_count = Attendance.where(confirmed_request: @user.name, overwork_status: "申請中").count # 時間外勤務申請のお知らせ件数
     @app_count = Attendance.where(send_approval: @user.name, overwork_status: "承認").count
     @rep_count = Attendance.where(report_to: @user.name, overwork_status: "報告中").count
+    @attendance = @user.attendances.find_by(worked_on: @first_day)
+    @superior = User.where(superior: true).where.not(id: @current_user.id)
+    @attendance_count = Attendance.where(aprv_confirmed: @user.name, aprv_status: "申請中").count # 勤怠変更のお知らせ件数
   end
 
   def new

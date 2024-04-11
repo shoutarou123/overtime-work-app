@@ -13,7 +13,7 @@ class AttendancesController < ApplicationController
         attendance.update!(item)
       end
     end
-    flash[:success] = "1ヶ月分の勤怠情報を更新しました。"
+    flash[:success] = "勤務情報を更新しました。"
     redirect_to user_url(date: params[:date])
   rescue ActiveRecord::RecordInvalid # トランザクションによるエラーの分岐です。
     flash[:danger] = "無効な入力データがあった為、更新をキャンセルしました。"
@@ -157,6 +157,24 @@ class AttendancesController < ApplicationController
     end
     redirect_to user_url(date: params[:date])
   end
+
+  def update_attendance_req # 1か月分の勤怠申請 patch
+    flag = 0
+    attendance_req_params.each do |id, item|
+      if item[:aprv_confirmed].present?
+        flag += 1
+        attendance = Attendance.find(id)
+        attendance.aprv_status = "申請中"
+        attendance.update(item)
+      end
+      if flag > 0
+        flash[:success] = "勤務変更申請を送信しました。"
+      else
+        flash[:danger] = "勤務変更申請に送信に失敗しました。"
+      end
+      redirect_to user_url(date: params[:date])
+    end
+  end
 end
 
 private
@@ -179,4 +197,8 @@ private
 
   def update_overtime_report_params
     params.require(:user).permit(attendances: [:overwork_status, :overwork_rep_chk])[:attendances]
+  end
+
+  def attendance_req_params
+    params.require(:user).permit(attendances: :aprv_confirmed)[:attendances]
   end
