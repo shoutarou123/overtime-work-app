@@ -91,17 +91,16 @@ class AttendancesController < ApplicationController
     @user = User.find(params[:id])
     flag = 0
     overtime_rep_params.each do |id, item|
-      attendance = Attendance.find(id)
-      if item[:started_at].blank? || item[:finished_at].blank? || item[:report_to].blank?
-        flag = 1 if item[:approved] == '1'
-      else
-        flag = 1
-      end
-      if flag == 1
+
+      if item[:started_at].present? && item[:finished_at].present? && item[:report_to].present?
+        flag += 1
+        attendance = Attendance.find(id)
         attendance.overwork_chk = '0'
         attendance.overwork_status = "報告中"
         overtime_instructor = item["overtime_instructor"]
         attendance.update(item.merge(overtime_instructor: overtime_instructor))
+      end
+      if flag > 0
         flash[:success] = "時間外勤務報告を送信しました。"
         NoticeMailer.overtime_report_notice.deliver_now
       else
