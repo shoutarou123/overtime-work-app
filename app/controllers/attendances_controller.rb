@@ -2,7 +2,8 @@ class AttendancesController < ApplicationController
   before_action :set_user, only: :edit_one_month
   before_action :logged_in_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
-  before_action :office_staff_user, only: [:edit_one_month, :update_one_month]
+  before_action :office_staff_user, only: [:edit_one_month, :update_one_month, :edit_overtime_req, :update_overtime_app]
+  before_action :superior_user_and_report_user, only: [:edit_overtime_aprv, :overtime_report]
 
   def edit_one_month
   end
@@ -159,7 +160,7 @@ class AttendancesController < ApplicationController
     redirect_to user_url(date: params[:date])
   end
 
-  def update_attendance_req # 1か月分の勤怠申請 patch
+  def update_attendance_req # 勤務変更申請 patch
     flag = 0
     attendance_req_params.each do |id, item|
       if item[:aprv_confirmed].present?
@@ -178,7 +179,7 @@ class AttendancesController < ApplicationController
     end
   end
 
-  def edit_chg_req
+  def edit_chg_req # 分署長が勤務変更内容確認
     @user = User.find(params[:id])
     @attendances = Attendance.where(aprv_confirmed: @user.name, aprv_status: "申請中")
     @users = User.where(id: @attendances.select(:user_id))
