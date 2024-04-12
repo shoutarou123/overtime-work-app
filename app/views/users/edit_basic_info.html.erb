@@ -18,7 +18,7 @@
           <%= f.text_field :job_title, class: "form-control" %>
 
           <%= f.label :name, class: "label-#{yield(:class_text)}" %>
-          <p><%= @user.name %></p>
+          <%= f.text_field :name, class: "form-control" %>
 
           <%= f.label :base_pay, class: "label-#{yield(:class_text)}" %>
           <%= f.text_field :base_pay, class: "form-control" %>

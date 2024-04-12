@@ -11,8 +11,9 @@ class User < ApplicationRecord
   has_secure_password # passwordﾊｯｼｭ化など
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   validates :employee_number, presence: true, on: :update
-  validates :department, length: { in: 2..15 }, allow_blank: true
-  validates :base_pay, presence: true, on: :update
+  validates :department, length: { in: 2..15 }, presence: true, on: :update
+  validates :base_pay, presence: true
+  validates :job_title, presence: true, on: :update
 
    # 渡された文字列のハッシュ値を返します。
   def User.digest(string)
