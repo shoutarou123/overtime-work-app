@@ -2,7 +2,7 @@
 <% provide(:title, @user.name) %>
 
 <%= form_with(model: @user, url: attendances_update_one_month_user_path(date: @first_day), local: true, method: :patch) do |f| %>
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-md-6 col-md-offset-3">
     <h1 class="user-title"><%= @user.name%>の勤務編集画面</h1>
       <table class="table table-bordered table-condensed table-striped" id="table-attendances">
         <thead>
