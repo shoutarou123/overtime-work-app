@@ -15,7 +15,7 @@ ja:
           employee_number: 職員番号
           base_pay: 基本給
           department: 所属
-          job_title: 職
+          job_title: 職名・階級
         attendance:
           worked_on: 日付
           started_at: 出勤時間
