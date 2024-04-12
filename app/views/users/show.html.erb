@@ -42,29 +42,35 @@
     <% if current_user.office_staff? %>
       <%= link_to "勤務編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-success" %>
     <% end %>
-    <% if @aprv_count > 0 %>
-      <%= link_to "【時間外勤務申請のお知らせ】", attendances_edit_overtime_aprv_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
-        <span class="notification-badge">
-          <%= "#{@aprv_count}件の通知があります" %>
-        </span>
+    <% if current_user.superior? %>
+      <% if @aprv_count > 0 %>
+        <%= link_to "【時間外勤務申請のお知らせ】", attendances_edit_overtime_aprv_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
+          <span class="notification-badge">
+            <%= "#{@aprv_count}件の通知があります" %>
+          </span>
+      <% end %>
     <% end %>
-    <% if @app_count > 0 %>
-      <%= link_to "【時間外勤務承認のお知らせ】", attendances_update_overtime_app_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
-        <span class="notification-badge">
-          <%= "#{@app_count}件の通知があります" %>
-        </span>
+    <% if current_user.office_staff? %>
+      <% if @app_count > 0 %>
+        <%= link_to "【時間外勤務承認のお知らせ】", attendances_update_overtime_app_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
+          <span class="notification-badge">
+            <%= "#{@app_count}件の通知があります" %>
+          </span>
+      <% end %>
     <% end %>
-    <% if @rep_count > 0 %>
-      <%= link_to "【時間外勤務報告のお知らせ】", attendances_overtime_report_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
-        <span class="notification-badge">
-          <%= "#{@rep_count}件の通知があります" %>
-        </span>
-    <% end %>
-    <% if @attendance_count > 0 %>
-      <%= link_to "【勤務変更申請のお知らせ】", attendances_edit_chg_req_user_path(date: @first_day), class: "sp-link"%>
-        <span class="notification-badge">
-          <%= "#{@attendance_count}件の通知があります" %>
-        </span>
+    <% if current_user.superior? %>
+      <% if @rep_count > 0 %>
+        <%= link_to "【時間外勤務報告のお知らせ】", attendances_overtime_report_user_path(date: @first_day), class: "sp-link" %> <!--引数はそのuserの月初-->
+          <span class="notification-badge">
+            <%= "#{@rep_count}件の通知があります" %>
+          </span>
+      <% end %>
+      <% if @attendance_count > 0 %>
+        <%= link_to "【勤務変更申請のお知らせ】", attendances_edit_chg_req_user_path(date: @first_day), class: "sp-link"%>
+          <span class="notification-badge">
+            <%= "#{@attendance_count}件の通知があります" %>
+          </span>
+      <% end %>
     <% end %>
 </div>
 

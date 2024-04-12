@@ -3,7 +3,7 @@ class AttendancesController < ApplicationController
   before_action :logged_in_user, only: [:update, :edit_one_month, :update_one_month]
   before_action :set_one_month, only: :edit_one_month
   before_action :office_staff_user, only: [:edit_one_month, :update_one_month, :edit_overtime_req, :update_overtime_app]
-  before_action :superior_user_and_report_user, only: [:edit_overtime_aprv, :overtime_report]
+  before_action :superior_user_and_report_user, only: [:edit_overtime_aprv, :overtime_report, :edit_chg_req]
 
   def edit_one_month
   end
