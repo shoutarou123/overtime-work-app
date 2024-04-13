@@ -187,6 +187,7 @@
             <td><%= sum_m_160 %></td> <!--160 分-->
           <td></td>
           <td rowspan="2">
+          <% if current_user.office_staff? %>
             <%= form_with(model: @user, url: attendances_update_attendance_req_user_path, local: true, method: :patch) do |f| %>
               <%= f.fields_for "attendances[]", @attendance do |attendance| %>
                 勤務変更
@@ -203,6 +204,7 @@
               <% end %>
                   <%= f.submit "申請", class: "btn btn-primary btn-block montly-req-btn" %>
               <% end %>
+            <% end %>
           </td>
       </tr>
       <tr>
