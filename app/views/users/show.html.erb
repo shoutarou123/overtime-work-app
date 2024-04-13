@@ -204,7 +204,22 @@
               <% end %>
                   <%= f.submit "申請", class: "btn btn-primary btn-block montly-req-btn" %>
               <% end %>
-            <% end %>
+          <% else %>
+             <%= form_with(model: @user, url: attendances_update_attendance_req_user_path, local: true, method: :patch) do |f| %>
+              <%= f.fields_for "attendances[]", @attendance do |attendance| %>
+                勤務変更
+                <% if @attendance.aprv_status.blank? %>
+                  未
+                <% elsif @attendance.aprv_status == "申請中" %>
+                  <%= "#{@attendance.aprv_confirmed}へ#{@attendance.aprv_status}" %>
+                <% elsif @attendance.aprv_status == "承認" %>
+                  <%= "#{@attendance.aprv_confirmed}から#{@attendance.aprv_status}済" %>
+                <% elsif @attendance.aprv_status == "否認" %>
+                  <%= "#{@attendance.aprv_confirmed}から#{@attendance.aprv_status}" %>
+                <% end %>
+              <% end %>
+             <% end %>
+          <% end %>
           </td>
       </tr>
       <tr>

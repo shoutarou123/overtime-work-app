@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 
   def admin_or_correct_user # 管理権限者、または現在ﾛｸﾞｲﾝしているﾕｰｻﾞｰを許可します。
     @user = User.find(params[:user_id]) if @user.blank? # @userが空だったらuser_idを探して代入
-    unless current_user?(@user) || current_user.admin? || current_user.office_staff # 現在ﾕｰｻﾞｰじゃない又は管理権限が無い場合
+    unless current_user?(@user) || current_user.admin? || current_user.office_staff || current_user.superior # 現在ﾕｰｻﾞｰじゃない又は管理権限が無い場合
       flash[:danger] = "権限がありません。"
       redirect_to(root_url)
     end
